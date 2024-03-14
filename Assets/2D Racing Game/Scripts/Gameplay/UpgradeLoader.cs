@@ -33,6 +33,7 @@ public class UpgradeLoader : MonoBehaviour {
 	{
 
 	}
+
 	void Awake () {
 	
 		// Read from upgrade menu

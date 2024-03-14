@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2518319063528508008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4033625788619123815}
+  - component: {fileID: 3123103737518670853}
+  m_Layer: 0
+  m_Name: NewStartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4033625788619123815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518319063528508008}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3163798, y: -1.77, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3123103737518670853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518319063528508008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3f95afdab59284986f02906f883d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cars:
+  - {fileID: 1407616701538708, guid: f2f8ba238f13f554e8a6cecc9bde8b9f, type: 3}
+  - {fileID: 1000013598449860, guid: a88811a7db5a59f4a968cc4500794a3a, type: 3}
+  - {fileID: 1000011023081392, guid: fcb9a40aa61936c43a1edcc9e1678369, type: 3}
+  - {fileID: 1000013283088352, guid: 8209c9c1206afeb40a6381521ecca5a3, type: 3}
+  - {fileID: 1000012017127484, guid: e7e190140aa7f7a4db3e6b7ded773518, type: 3}
+  - {fileID: 1000011106667156, guid: 93858210294553f4f85fde3802f14733, type: 3}
+  - {fileID: 1000011758360774, guid: 56306aed10cedc7419828f79d04b3159, type: 3}
+  - {fileID: 1000013691445278, guid: 2d09151c2dd87a542b5a193381181332, type: 3}

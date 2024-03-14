@@ -44,8 +44,6 @@ public class SettingsMenu : MonoBehaviour {
 		
 		engineVolume.value = PlayerPrefs.GetFloat ("EngineVolume");
 		musicVolume.value = PlayerPrefs.GetFloat ("MusicVolume");
-
-
 	}
 
 

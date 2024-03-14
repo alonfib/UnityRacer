@@ -2,17 +2,19 @@
 using System.Collections; 
 
 
-public class CarController : MonoBehaviour { 
-
+public class NewCarController : MonoBehaviour { 
 
 	// Car rigidbody COM
 	public Transform centerOfMass;
 
 	// Wheel motor for drive the car based on wheelJoint 2D
-	JointMotor2D motorBack;  
+	JointMotor2D motorBack;
+	JointMotor2D motorFront;
 
-	// Which wheel to drive with that?
-	public WheelJoint2D motorWheel;
+	public WheelJoint2D rearMotorWheel;
+	public WheelJoint2D frontMotorWheel;
+
+	public DrivetrainType drivetrainType = DrivetrainType.RWD;
 
 	// Store car speed
 	public float speed ;   
@@ -29,7 +31,8 @@ public class CarController : MonoBehaviour {
 	decelerationSpeed = 0.3f;
 
 	// Car max speed
-	public float maxSpeed = 14f;
+	//public float maxSpeed = 140f;
+	public float maxSpeed = 14f; // original
 
 	// inrenal usage
 	float motorTemp;
@@ -40,7 +43,7 @@ public class CarController : MonoBehaviour {
 	// Rotate force on the  fly 
 	public float RotateForce = 140f;
 
-	[HideInInspector]public AudioSource EngineSoundS;
+	public AudioSource EngineSoundS;
 
 	public bool isMobile;
 
@@ -68,17 +71,15 @@ public class CarController : MonoBehaviour {
 
 	void Start () { 
 
-
 		// Set car rigidbody's COM
 		GetComponent<Rigidbody2D>().centerOfMass = centerOfMass.transform.localPosition;
 
 		// Starting with WheelJoint2D motor
-		motorBack = motorWheel.motor; 
+		motorBack = rearMotorWheel.motor;
+		motorFront = frontMotorWheel.motor;
 
 		// Cast a ray to find isGrounded 
 		StartCoroutine (RaycCast ());
-
-		EngineSoundS = GetComponent<AudioSource> ();
 
 		powerTemp = motorPower;
 
@@ -89,67 +90,80 @@ public class CarController : MonoBehaviour {
 			emSmoke = smoke.emission;
 			emSmoke.enabled = false;
 		}
-
-
-
 	}  
 
 	float currentSpeed;    
 	//float maxspeed = 300f;
 
-	void FixedUpdate(){
+    void FixedUpdate(){
 
 		// speed limiter based on max speed limit value
 		if (speed > maxSpeed)
 			motorPower = 0;
 		else
 			motorPower = powerTemp;
-		
+
 		// Moving forward
 		if (Input.GetAxis ("Horizontal") > 0 || HoriTemp > 0) {
+	
 			// Add force to car back wheel
-			if(isGrounded)
-				motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, -motorPower, Time.deltaTime * 1.4f);
+			if (isGrounded)
+				motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, motorPower, Time.deltaTime * 1.4f);
+				motorFront.motorSpeed = Mathf.Lerp(motorFront.motorSpeed, motorPower, Time.deltaTime * 1.4f);
+				Debug.Log("motorPower");
+				Debug.Log(motorPower);
 
-			// Wheel particles
-			if (isGrounded) {
-				if (speed < 4.3f) {
-					wheelParticle.transform.position = particlePosition.position;
+            // Wheel particles
+            if (isGrounded)
+            {
+                if (speed < 4.3f)
+                {
+                    wheelParticle.transform.position = particlePosition.position;
 
-					em.enabled = true;
+                    em.enabled = true;
 
-				} else
-					em.enabled = false;
-			}
-			else
-				em.enabled = false;
-			
+                }
+                else
+                    em.enabled = false;
+            }
+            else
+                em.enabled = false;
+
 		}
 		else 
 		{// Moving backward
 			if (Input.GetAxis ("Horizontal") < 0 || HoriTemp < 0) {
+				Debug.Log("Brake Pressing");
 
 				if (speed < -maxSpeed) {
 					if (isGrounded)
 						motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, 0, Time.deltaTime * 3f);
+						motorFront.motorSpeed = Mathf.Lerp (motorFront.motorSpeed, 0, Time.deltaTime * 3f);
 				} else {
 					if (isGrounded)
 						motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, motorPower, Time.deltaTime * 1.4f);
-				}
+						motorFront.motorSpeed = Mathf.Lerp (motorFront.motorSpeed, motorPower, Time.deltaTime * 1.4f);
+					}
                                                                                       
 			} else {// Releasing car throttle and brake
 				if (isGrounded)
-					motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, 0, Time.deltaTime * decelerationSpeed);	
+					motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, 0, Time.deltaTime * decelerationSpeed);
+					motorFront.motorSpeed = Mathf.Lerp (motorFront.motorSpeed, 0, Time.deltaTime * decelerationSpeed);	
 			}
 
 		}
 
-		// Update WheelJoint2D motor inputs
-
-		motorWheel.motor = motorBack; 
-
+        // Update WheelJoint2D motor inputs
+        if (drivetrainType == DrivetrainType.FWD || drivetrainType == DrivetrainType.AWD)
+        {
+            frontMotorWheel.motor = motorFront;
+        }
+		if(drivetrainType == DrivetrainType.RWD || drivetrainType == DrivetrainType.AWD)
+        {
+			rearMotorWheel.motor = motorBack;
+        }
+		
 		// Cheack fo rotate on the fly
-	
 		Rotate ();
 	
 		#if UNITY_EDITOR
@@ -172,14 +186,21 @@ public class CarController : MonoBehaviour {
 		}
 	}
 
+	
+
 
 	void LateUpdate()
 	{
 
 		// Get car speed
-		speed = GetComponent<Rigidbody2D>().velocity.magnitude;
+		//speed = GetComponent<Rigidbody2D>().velocity.magnitude;
+		speed = motorBack.motorSpeed;
 		if (Input.GetAxis ("Horizontal") < 0 || HoriTemp < 0) 
 			speed = -speed;
+
+		//Debug.Log("speed");
+		//Debug.Log(speed);
+
 	}
 
 	// Rotate car on air based on speed
@@ -203,23 +224,24 @@ public class CarController : MonoBehaviour {
 
 		while (true) 
 		{
+			
 			yield return new WaitForEndOfFrame();
 
-			RaycastHit2D hit = Physics2D.Raycast (transform.position, -Vector2.up, 1000);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 1000);
 
-			float distance = Mathf.Abs(hit.point.y - transform.position.y);
+            float distance = Mathf.Abs(hit.point.y - transform.position.y);
 
 
-			if (distance < groundDistance)
-				isGrounded = true;
-			else
-				isGrounded = false;
+            if (distance < groundDistance)
+                isGrounded = true;
+            else
+                //isGrounded = false;
 
-			canRotate = !isGrounded;  	
+            canRotate = !isGrounded;
 
-		}
+        }
 
-	}
+    }
 
 	// Engine sound system
 
@@ -264,6 +286,7 @@ public class CarController : MonoBehaviour {
 	//this is public function for car Acceleration UI Button
 	public void Acceleration ()
 	{
+		Debug.Log("Acc");
 		HoriTemp = 1f;
 	}
 	//this is public function for car Brake\Backward UI Button
