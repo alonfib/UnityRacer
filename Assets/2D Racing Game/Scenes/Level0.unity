@@ -59699,8 +59699,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1420291138}
-          m_TargetAssemblyTypeName: NewCarInput, Assembly-CSharp
+        - m_Target: {fileID: 1420291137}
+          m_TargetAssemblyTypeName: CarInput, Assembly-CSharp
           m_MethodName: Brake
           m_Mode: 1
           m_Arguments:
@@ -59715,8 +59715,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1420291138}
-          m_TargetAssemblyTypeName: NewCarInput, Assembly-CSharp
+        - m_Target: {fileID: 1420291137}
+          m_TargetAssemblyTypeName: CarInput, Assembly-CSharp
           m_MethodName: ReleaseGasBrake
           m_Mode: 1
           m_Arguments:
@@ -79348,7 +79348,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420291131}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cbb2a8ebd568468bb457ac3939c0673, type: 3}
   m_Name: 
@@ -88064,8 +88064,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1420291138}
-          m_TargetAssemblyTypeName: NewCarInput, Assembly-CSharp
+        - m_Target: {fileID: 1420291137}
+          m_TargetAssemblyTypeName: CarInput, Assembly-CSharp
           m_MethodName: Gas
           m_Mode: 1
           m_Arguments:
@@ -88080,8 +88080,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1420291138}
-          m_TargetAssemblyTypeName: NewCarInput, Assembly-CSharp
+        - m_Target: {fileID: 1420291137}
+          m_TargetAssemblyTypeName: CarInput, Assembly-CSharp
           m_MethodName: ReleaseGasBrake
           m_Mode: 1
           m_Arguments:
@@ -109591,7 +109591,7 @@ Transform:
   m_GameObject: {fileID: 1933402084}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2, y: -1.4, z: 0}
+  m_LocalPosition: {x: -1.35, y: 3.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109610,8 +109610,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cars:
-  - {fileID: 1407616701538708, guid: c0ea1c7c8eb094c808bf7317a421642c, type: 3}
-  - {fileID: 1407616701538708, guid: c0ea1c7c8eb094c808bf7317a421642c, type: 3}
+  - {fileID: 1407616701538708, guid: f2f8ba238f13f554e8a6cecc9bde8b9f, type: 3}
+  - {fileID: 1000013598449860, guid: a88811a7db5a59f4a968cc4500794a3a, type: 3}
   - {fileID: 1000011023081392, guid: fcb9a40aa61936c43a1edcc9e1678369, type: 3}
   - {fileID: 1000013283088352, guid: 8209c9c1206afeb40a6381521ecca5a3, type: 3}
   - {fileID: 1000012017127484, guid: e7e190140aa7f7a4db3e6b7ded773518, type: 3}
@@ -123969,104 +123969,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &3196706250244961878
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2518319063528508008, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_Name
-      value: CarSpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 2518319063528508008, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.3163798
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.77
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033625788619123815, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3123103737518670853, guid: 3e5839ad9bc444b49ac21212bf77b273, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2518319063528508008, guid: 3e5839ad9bc444b49ac21212bf77b273,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3196706250244961880}
-  m_SourcePrefab: {fileID: 100100000, guid: 3e5839ad9bc444b49ac21212bf77b273, type: 3}
---- !u!1 &3196706250244961879 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2518319063528508008, guid: 3e5839ad9bc444b49ac21212bf77b273,
-    type: 3}
-  m_PrefabInstance: {fileID: 3196706250244961878}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3196706250244961880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3196706250244961879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2344285d51974848adb5206d31f6fe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cars:
-  - {fileID: 1407616701538708, guid: c0ea1c7c8eb094c808bf7317a421642c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -124080,4 +123982,3 @@ SceneRoots:
   - {fileID: 190042382}
   - {fileID: 412716326}
   - {fileID: 1933402085}
-  - {fileID: 3196706250244961878}

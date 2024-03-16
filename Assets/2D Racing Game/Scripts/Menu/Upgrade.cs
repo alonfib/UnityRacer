@@ -13,7 +13,7 @@ public class Upgrade : MonoBehaviour
 	public int[] suspensionPrice;
 	public int[] speedPrice;
 
-	int id;
+	int selectedCarId;
 
 	[Header("Informatin Texts")]
 	public Text CoinsTXT;
@@ -41,8 +41,8 @@ public class Upgrade : MonoBehaviour
 
     private void OnEnable()
     {
-		id = PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCar);
-		CurrentCarImage.sprite = carsIcons[id];
+		selectedCarId = PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCar);
+		CurrentCarImage.sprite = carsIcons[selectedCarId];
 	}
 
     public void Back ()
@@ -53,42 +53,40 @@ public class Upgrade : MonoBehaviour
 	
 	public void LoadUpgrade()
 	{
-		id = PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedCar);
-		Engine = PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ());
-		Fuel = PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ());
-		Suspension = PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ());
-		Speed = PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ());
+		selectedCarId = PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedCar);
+		Engine = PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + selectedCarId.ToString ());
+		Fuel = PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + selectedCarId.ToString ());
+		Suspension = PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + selectedCarId.ToString ());
+		Speed = PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + selectedCarId.ToString ());
 
-		TorqueTXT.text = "Level: "+ PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ()).ToString ()+" / "+enginePrice.Length.ToString();
-		SuspensionTXT.text = "Level: "+ PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ()).ToString ()+" / "+suspensionPrice.Length.ToString();
-		FuelTXT.text = "Level: "+ PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ()).ToString ()+" / "+fuelPrice.Length.ToString();
-		SpeedTXT.text = "Level: "+ PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ()).ToString ()+" / "+speedPrice.Length.ToString();
-
-		CoinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
-
-
-		if (PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ()) < enginePrice.Length)
-			priceTorqueTXT.text = enginePrice [PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ())].ToString () + " $";
-		else
-			priceTorqueTXT.text = "Completed";
-		
-		if (PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ()) < speedPrice.Length)
-			priceSpeedTXT.text = speedPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ())].ToString()+ " $";
-		else
-			priceSpeedTXT.text = "Completed";
-		
-		if (PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ()) < fuelPrice.Length)
-			priceFuelTXT.text = fuelPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ())].ToString()+ " $";
-		else
-			priceFuelTXT.text = "Completed";
-		
-		if (PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ()) < suspensionPrice.Length)	
-			priceSuspensionTXT.text = suspensionPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ())].ToString()+ " $";
-		else
-			priceSuspensionTXT.text = "Completed";
-		
-		
+		UpdateUI();
 	}
+
+	private void UpdateUI()
+	{
+		TorqueTXT.text = FormatLevelText(Engine, enginePrice.Length);
+		SuspensionTXT.text = FormatLevelText(Suspension, suspensionPrice.Length);
+		FuelTXT.text = FormatLevelText(Fuel, fuelPrice.Length);
+		SpeedTXT.text = FormatLevelText(Speed, speedPrice.Length);
+
+		CoinsTXT.text = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins).ToString();
+
+		UpdatePriceText(priceTorqueTXT, Engine, enginePrice);
+		UpdatePriceText(priceSpeedTXT, Speed, speedPrice);
+		UpdatePriceText(priceFuelTXT, Fuel, fuelPrice);
+		UpdatePriceText(priceSuspensionTXT, Suspension, suspensionPrice);
+	}
+
+	private void UpdatePriceText(Text priceText, int level, int[] prices)
+	{
+		priceText.text = level < prices.Length ? prices[level] + " $" : "Completed";
+	}
+
+	private string FormatLevelText(int level, int maxLevel)
+	{
+		return "Level: " + level.ToString() + " / " + maxLevel.ToString();
+	}
+
 	void Update ()
 	{
 		#if UNITY_EDITOR
@@ -97,103 +95,65 @@ public class Upgrade : MonoBehaviour
 		#endif
 	}
 
-	public void EngineUpgrade ()
+	private int GetPlayerPrefInt(string key)
 	{
-		if (PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ()) < enginePrice.Length) {
-
-			if (PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) >= enginePrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ())]) {
-				audioSource.clip = Buy;
-				audioSource.Play ();
-				PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) - enginePrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ())]);
-				PlayerPrefs.SetInt (PlayerPrefsKeys.Engine + id.ToString (), PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ()) + 1);
-				CoinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
-				TorqueTXT.text = "Level : "+PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ()).ToString ()+" / "+enginePrice.Length.ToString();
-				if (PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ()) < enginePrice.Length)
-					priceTorqueTXT.text = enginePrice [PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + id.ToString ())].ToString () + " $";
-				else
-					priceTorqueTXT.text = "Completed";
-			} else {
-				Shop.SetActive (true);
-
-				audioSource.clip = Caution;
-				audioSource.Play ();
-			}
-
-		}
+		return PlayerPrefs.GetInt(key);
 	}
 
-	public void SuspensionUpgrade ()
+	private void SetPlayerPrefInt(string key, int value)
 	{
-		if (PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ()) < suspensionPrice.Length) {
+		PlayerPrefs.SetInt(key, value);
+		PlayerPrefs.Save();
+	}
 
-			if (PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) >= suspensionPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ())]) {
-				audioSource.clip = Buy;
-				audioSource.Play ();
-				PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) - suspensionPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ())]);
-				PlayerPrefs.SetInt (PlayerPrefsKeys.Suspension + id.ToString (), PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ()) + 1);
-				CoinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
-				SuspensionTXT.text = "Level : "+PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ()).ToString ()+" / "+suspensionPrice.Length.ToString();
-				if (PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ()) < speedPrice.Length)
-					priceSuspensionTXT.text = suspensionPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + id.ToString ())].ToString()+ " $";
-				else
-					priceSuspensionTXT.text = "Completed";
-			} else {
-				Shop.SetActive (true);
-				audioSource.clip = Caution;
-				audioSource.Play ();
+	private void PlaySound(AudioClip clip)
+	{
+		audioSource.clip = clip;
+		audioSource.Play();
+	}
+
+	private void UpgradeFeature(string featureKey, int[] prices, System.Action incrementFeatureLevel)
+	{
+		int featureLevel = GetPlayerPrefInt(featureKey + selectedCarId.ToString());
+		if (featureLevel < prices.Length)
+		{
+			int price = prices[featureLevel];
+			int coins = GetPlayerPrefInt(PlayerPrefsKeys.Coins);
+			if (coins >= price)
+			{
+				SetPlayerPrefInt(PlayerPrefsKeys.Coins, coins - price);
+				incrementFeatureLevel();
+				SetPlayerPrefInt(featureKey + selectedCarId.ToString(), featureLevel + 1);
+				PlaySound(Buy);
+				UpdateUI();
+			}
+			else
+			{
+				Shop.SetActive(true);
+				PlaySound(Caution);
 			}
 		}
 	}
 
-	public void FuelUpgrade ()
+	public void EngineUpgrade()
 	{
-		if (PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ()) < fuelPrice.Length) {
-
-			if (PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) >= fuelPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ())]) {
-				audioSource.clip = Buy;
-				audioSource.Play ();
-				PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) - fuelPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ())]);
-				PlayerPrefs.SetInt (PlayerPrefsKeys.Fuel + id.ToString (), PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ()) + 1);
-				CoinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
-				FuelTXT.text = "Level : "+PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ()).ToString ()+" / "+fuelPrice.Length.ToString();
-				if (PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ()) < fuelPrice.Length)
-					priceFuelTXT.text = fuelPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + id.ToString ())].ToString()+ " $";
-				else
-					priceFuelTXT.text = "Completed";
-			} else {
-				Shop.SetActive (true);
-				audioSource.clip = Caution;
-				audioSource.Play ();
-			}
-		}
+		UpgradeFeature(PlayerPrefsKeys.Engine, enginePrice, () => Engine++);
 	}
 
-
-
-
-	public void SpeedUpgrade ()
+	public void SuspensionUpgrade()
 	{
-		if (PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ()) < speedPrice.Length) {
-
-			if (PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) >= speedPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ())]) {
-				audioSource.clip = Buy;
-				audioSource.Play ();
-				PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) - speedPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ())]);
-				PlayerPrefs.SetInt (PlayerPrefsKeys.Speed + id.ToString (), PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ()) + 1);
-				CoinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
-				SpeedTXT.text = "Level : "+PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ()).ToString ()+" / "+speedPrice.Length.ToString();
-				if (PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ()) < speedPrice.Length)
-					priceSpeedTXT.text = speedPrice[PlayerPrefs.GetInt (PlayerPrefsKeys.Speed + id.ToString ())].ToString()+ " $";
-				else
-					priceSpeedTXT.text = "Completed";
-			} else {
-				Shop.SetActive (true);
-				audioSource.clip = Caution;
-				audioSource.Play ();
-			}
-		}
+		UpgradeFeature(PlayerPrefsKeys.Suspension, suspensionPrice, () => Suspension++);
 	}
 
+	public void FuelUpgrade()
+	{
+		UpgradeFeature(PlayerPrefsKeys.Fuel, fuelPrice, () => Fuel++);
+	}
+
+	public void SpeedUpgrade()
+	{
+		UpgradeFeature(PlayerPrefsKeys.Speed, speedPrice, () => Speed++);
+	}
 
 	public void StartGame ()
 	{
@@ -206,7 +166,6 @@ public class Upgrade : MonoBehaviour
 		gameObject.SetActive (false);
 
 	}
-
 
 
 	public void SetControll ()
@@ -223,8 +182,4 @@ public class Upgrade : MonoBehaviour
 		else
 			PlayerPrefs.SetInt (PlayerPrefsKeys.Assistance, 0);   // 3=>true - 0=>false    
 	}
-
-
-
-
 }

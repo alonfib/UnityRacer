@@ -47,8 +47,11 @@ public class MenuTools : MonoBehaviour {
 			PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) + startScore);
 		}
 
-			
-		CoinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
+
+		if(CoinsTXT)
+        {
+			CoinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
+        }
 	}
 	
 

@@ -35,13 +35,19 @@ public class CarControllerEditor : Editor{
 			new GUIContent ("Is Mobile", "Is Mobile"), true);
 		EditorGUILayout.Space ();
 
+		EditorGUILayout.PropertyField(serializedObject.FindProperty("drivetrain"),
+		new GUIContent("Drivetrain", "Drivetrain"), true);
+		EditorGUILayout.Space();
+
 		EditorGUILayout.PropertyField (serializedObject.FindProperty ("centerOfMass"),
 			new GUIContent ("Center Of Mass", "Center Of Mass"), true);
 		EditorGUILayout.Space ();
-		EditorGUILayout.PropertyField (serializedObject.FindProperty ("motorWheel"),
-			new GUIContent ("Motor Wheel2D", "Motor Wheel2D"), true);
-		EditorGUILayout.Space ();
-
+		EditorGUILayout.PropertyField(serializedObject.FindProperty("rearMotorWheel"),
+			new GUIContent("Rear Motor Wheel2D", "Rear Motor Wheel2D"), true);
+		EditorGUILayout.Space();
+		EditorGUILayout.PropertyField(serializedObject.FindProperty("frontMotorWheel"),
+			new GUIContent("Front Motor Wheel2D", "Front Motor Wheel2D"), true);
+		EditorGUILayout.Space();
 		EditorGUILayout.PropertyField (serializedObject.FindProperty ("motorPower"),
 			new GUIContent ("Motor Power", "Motor Power"), true);
 		EditorGUILayout.Space ();

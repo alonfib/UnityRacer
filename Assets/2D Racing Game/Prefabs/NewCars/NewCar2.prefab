@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 2976440550931622066}
   - component: {fileID: 5283449336459163436}
   m_Layer: 2
-  m_Name: Wheel_1
+  m_Name: Front_Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 4562068669654946866}
   - component: {fileID: 5644935889767787051}
   m_Layer: 2
-  m_Name: Body
+  m_Name: Car
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,8 +469,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bbdaa32f2b7f04f938edbcc32406c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMobile: 1
   centerOfMass: {fileID: 4413917658025832618}
-  motorWheel: {fileID: 4562068669654946866}
+  wheelParticle: {fileID: 6429516568406805672}
+  useSmoke: 0
+  smoke: {fileID: 0}
+  smokeTargetSpeed: 17
+  cameraDistance: 15
+  drivetrain: 1
+  frontMotorWheel: {fileID: 5644935889767787051}
+  rearMotorWheel: {fileID: 4562068669654946866}
   speed: 0
   groundDistance: 2.4
   motorPower: 1400
@@ -478,14 +486,8 @@ MonoBehaviour:
   decelerationSpeed: 0.3
   maxSpeed: 34
   RotateForce: 140
-  EngineSoundS: {fileID: 0}
-  isMobile: 1
-  wheelParticle: {fileID: 6429516568406805672}
   particlePosition: {fileID: 2360779736331215123}
-  useSmoke: 0
-  smoke: {fileID: 0}
-  smokeTargetSpeed: 17
-  cameraDistance: 15
+  EngineSoundS: {fileID: 0}
   Multiplyer: 3
   minP: 1
   maxP: 2.4
@@ -631,7 +633,7 @@ WheelJoint2D:
     m_DampingRatio: 0.1
     m_Frequency: 3
     m_Angle: 90
-  m_UseMotor: 0
+  m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
@@ -648,7 +650,7 @@ GameObject:
   - component: {fileID: 1858411939752153541}
   - component: {fileID: 1049643283732391030}
   m_Layer: 2
-  m_Name: Drive_Wheel
+  m_Name: Rear_Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1449,26 +1451,33 @@ PolygonCollider2D:
       - {x: -2.3726315, y: 1.0905263}
       - {x: -3.286316, y: 1.0168421}
       - {x: -3.4926317, y: 0.8694737}
-      - {x: -3.5957894, y: 0.6189474}
-      - {x: -3.64, y: 0.35368422}
-      - {x: -3.7726316, y: -0.5452632}
-      - {x: -3.7726316, y: -0.7957895}
-      - {x: -3.7578948, y: -0.8842105}
+      - {x: -3.601798, y: 0.6803877}
+      - {x: -3.6640625, y: 0.53800505}
+      - {x: -3.7425606, y: 0.19202596}
+      - {x: -3.7606146, y: -0.7957895}
+      - {x: -3.6783795, y: -0.97735655}
       - {x: -3.6252632, y: -0.9726316}
-      - {x: -2.7263157, y: -0.9726316}
-      - {x: -2.711579, y: -0.95789474}
-      - {x: -0.44210526, y: -0.95789474}
-      - {x: -0.42736843, y: -0.9726316}
-      - {x: 0.44210526, y: -1.0168421}
-      - {x: 0.85473686, y: -1.0168421}
-      - {x: 1.2526315, y: -1.031579}
+      - {x: -3.7728312, y: -1.0993651}
+      - {x: -3.7211685, y: -1.2269585}
+      - {x: -3.3724196, y: -1.2301512}
+      - {x: -3.2924833, y: -1.1380444}
+      - {x: -3.0461044, y: -1.136796}
+      - {x: -2.8985703, y: -0.91044766}
+      - {x: -2.711579, y: -0.8779465}
+      - {x: -1.6008584, y: -0.8735025}
+      - {x: -1.3929931, y: -1.1458576}
+      - {x: -0.96499383, y: -1.1503012}
+      - {x: -0.36172178, y: -1.1412101}
+      - {x: 0.47892126, y: -1.1367689}
+      - {x: 1.0641481, y: -1.1251372}
+      - {x: 1.358112, y: -1.1193097}
       - {x: 1.4, y: -1.0168421}
-      - {x: 1.6210526, y: -0.9284211}
-      - {x: 1.783158, y: -0.7663158}
+      - {x: 1.4482926, y: -0.9284211}
+      - {x: 1.6941526, y: -0.6861227}
       - {x: 2.225263, y: -0.6778948}
-      - {x: 2.6526315, y: -1.031579}
-      - {x: 3.0800002, y: -1.031579}
-      - {x: 3.4926317, y: -0.9431579}
+      - {x: 2.4850938, y: -0.77763766}
+      - {x: 2.9158597, y: -1.2271473}
+      - {x: 3.3394134, y: -1.2225392}
       - {x: 3.7431579, y: -0.5452632}
       - {x: 3.7431579, y: -0.22105263}
   m_UseDelaunayMesh: 0
@@ -6262,7 +6271,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

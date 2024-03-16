@@ -2,62 +2,48 @@
 using System.Collections; 
 
 
-public class CarController : MonoBehaviour { 
-
-
-	// Car rigidbody COM
+public class CarController : MonoBehaviour {
+	public bool isMobile;
 	public Transform centerOfMass;
+	public ParticleSystem wheelParticle;
+	public bool useSmoke;
+	public ParticleSystem smoke;
+	public float smokeTargetSpeed = 17f;
+	public float cameraDistance = 15f;
 
-	// Wheel motor for drive the car based on wheelJoint 2D
-	JointMotor2D motorBack;  
-
-	// Which wheel to drive with that?
-	public WheelJoint2D motorWheel;
+	public DrivetrainType drivetrain = DrivetrainType.RWD;
+	public WheelJoint2D frontMotorWheel;
+	public WheelJoint2D rearMotorWheel;
 
 	// Store car speed
-	public float speed ;   
-
-	// Store is grounded based on the distance of the ground
-	bool isGrounded;
-
+	public float speed;
 	// How much distance of the ground means cars is grounded? answer=> less than 2.1f
 	public float groundDistance = 2.1f ;
-
 	// Motor power, Brake power and deceleration speed
 	public float motorPower = 1400f,
 	brakePower = -14f,
 	decelerationSpeed = 0.3f;
-
 	// Car max speed
 	public float maxSpeed = 14f;
-
-	// inrenal usage
-	float motorTemp;
-
-	// Can rotate option. be true value when car is on the fly
-	bool canRotate = false;
-
 	// Rotate force on the  fly 
 	public float RotateForce = 140f;
 
-	[HideInInspector]public AudioSource EngineSoundS;
-
-	public bool isMobile;
-
-	public ParticleSystem wheelParticle;
+	JointMotor2D rearMotor;
+	JointMotor2D frontMotor;
+	// Store is grounded based on the distance of the ground
+	bool isGrounded;
+	// inrenal usage
+	float motorTemp;
+	// Can rotate option. be true value when car is on the fly
+	bool canRotate = false;
 
 	// Internal usage
 	float powerTemp;
 	ParticleSystem.EmissionModule em ,emSmoke;
-
 	public Transform particlePosition;
 
-	public bool useSmoke;
-	public ParticleSystem smoke;
-	public float smokeTargetSpeed = 17f;
 
-	public float cameraDistance = 15f;
-
+	[HideInInspector]public AudioSource EngineSoundS;
 
 	void Awake()
 	{
@@ -66,14 +52,35 @@ public class CarController : MonoBehaviour {
 		Camera.main.transform.position = new Vector3 (posCamera.x, posCamera.y, - cameraDistance);
 	}
 
+	void UpdateDriveTrain()
+    {
+		if (drivetrain == DrivetrainType.RWD)
+		{
+			rearMotorWheel.useMotor = true;
+			rearMotor = rearMotorWheel.motor;
+			frontMotorWheel.useMotor = false;
+		}
+		else if (drivetrain == DrivetrainType.FWD)
+		{
+			frontMotorWheel.useMotor = true;
+			frontMotor = frontMotorWheel.motor;
+			rearMotorWheel.useMotor = false;
+		}
+		else if (drivetrain == DrivetrainType.AWD)
+		{
+			frontMotorWheel.useMotor = true;
+			rearMotorWheel.useMotor = true;
+			frontMotor = frontMotorWheel.motor;
+			rearMotor = rearMotorWheel.motor;
+		}
+
+	}
+
 	void Start () { 
-
-
 		// Set car rigidbody's COM
 		GetComponent<Rigidbody2D>().centerOfMass = centerOfMass.transform.localPosition;
+		UpdateDriveTrain();
 
-		// Starting with WheelJoint2D motor
-		motorBack = motorWheel.motor; 
 
 		// Cast a ray to find isGrounded 
 		StartCoroutine (RaycCast ());
@@ -109,7 +116,8 @@ public class CarController : MonoBehaviour {
 		if (Input.GetAxis ("Horizontal") > 0 || HoriTemp > 0) {
 			// Add force to car back wheel
 			if(isGrounded)
-				motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, -motorPower, Time.deltaTime * 1.4f);
+				rearMotor.motorSpeed = Mathf.Lerp (rearMotor.motorSpeed, -motorPower, Time.deltaTime * 1.4f);
+				frontMotor.motorSpeed = Mathf.Lerp (frontMotor.motorSpeed, -motorPower, Time.deltaTime * 1.4f);
 
 			// Wheel particles
 			if (isGrounded) {
@@ -131,25 +139,35 @@ public class CarController : MonoBehaviour {
 
 				if (speed < -maxSpeed) {
 					if (isGrounded)
-						motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, 0, Time.deltaTime * 3f);
+						rearMotor.motorSpeed = Mathf.Lerp (rearMotor.motorSpeed, 0, Time.deltaTime * 3f);
+						frontMotor.motorSpeed = Mathf.Lerp (frontMotor.motorSpeed, 0, Time.deltaTime * 3f);
 				} else {
 					if (isGrounded)
-						motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, motorPower, Time.deltaTime * 1.4f);
+						rearMotor.motorSpeed = Mathf.Lerp (rearMotor.motorSpeed, motorPower, Time.deltaTime * 1.4f);
+						frontMotor.motorSpeed = Mathf.Lerp (frontMotor.motorSpeed, motorPower, Time.deltaTime * 1.4f);
 				}
                                                                                       
 			} else {// Releasing car throttle and brake
 				if (isGrounded)
-					motorBack.motorSpeed = Mathf.Lerp (motorBack.motorSpeed, 0, Time.deltaTime * decelerationSpeed);	
+					rearMotor.motorSpeed = Mathf.Lerp (rearMotor.motorSpeed, 0, Time.deltaTime * decelerationSpeed);
+					frontMotor.motorSpeed = Mathf.Lerp (frontMotor.motorSpeed, 0, Time.deltaTime * decelerationSpeed);	
 			}
 
 		}
 
 		// Update WheelJoint2D motor inputs
 
-		motorWheel.motor = motorBack; 
+		if(drivetrain == DrivetrainType.RWD || drivetrain == DrivetrainType.AWD)
+        {
+			rearMotorWheel.motor = rearMotor; 
+        }
+		if (drivetrain == DrivetrainType.FWD || drivetrain == DrivetrainType.AWD)
+		{
+			frontMotorWheel.motor = frontMotor;
+		}
 
 		// Cheack fo rotate on the fly
-	
+
 		Rotate ();
 	
 		#if UNITY_EDITOR

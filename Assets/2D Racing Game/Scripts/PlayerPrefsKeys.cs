@@ -2,16 +2,17 @@
 {
     // My New Keys
     public const string New = "New";
-    
+    public const string OwnedCarsIds = "OwnedCarsIds";
+    public const string OwnedLevelsIds = "OwnedLevelsIds";
+
 
     // Existing keys
     public const string Coins = "Coins";
-    public const string OwnedLevel = "Level";
-    public const string OwnedCar = "Car";
+    public const string Level = "Level";
+    public const string Car = "Car";
     public const string SelectedCar = "SelectedCar";
     public const string SelectedLevel = "SelectedLevel";
-    public const string CarID = "CarID";
-    public const string LevelID = "LevelID";
+
     // Add new keys from MenuTools.cs
     public const string FirstRun = "FirstRun";
     public const string Resolution = "Resolution";
