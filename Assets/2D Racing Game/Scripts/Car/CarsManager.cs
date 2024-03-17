@@ -89,7 +89,8 @@ public class CarsManager : MonoBehaviour
         }
 
         // Check if the carId is in the ownedCars array
-        if (System.Array.IndexOf(ownedCars, carId) != -1)
+        Car car = GetCarByIndex(carId);
+        if (System.Array.IndexOf(ownedCars, car.ID) != -1)
         {
             return true; // The car is owned
         }
