@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class Wheel : MonoBehaviour
+public class ShopItem : MonoBehaviour
 {
     public string ID;
     public int Price;

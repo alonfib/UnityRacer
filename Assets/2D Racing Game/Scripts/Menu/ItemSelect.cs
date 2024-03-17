@@ -16,7 +16,6 @@ public class ItemSelect : MonoBehaviour
 	// Current,Prev and next button images + Items icon
 	[Header("Icons")]
 	public Sprite[] levelIcons;
-	public Sprite[] carsIcons;
 	public Image currentItemImage;
 	public Image prevItemImage;
 	public Image nextItemImage;
@@ -95,7 +94,7 @@ public class ItemSelect : MonoBehaviour
 
 	private void UpdateImages()
 	{
-		Sprite[] icons = itemType == ItemType.Car ? carsIcons : levelIcons;
+		Sprite[] icons = itemType == ItemType.Car ? carsManager.carsIcons : levelIcons;
 
 		int selectedId = itemType == ItemType.Car ? selectedCarId : selectedLevelId;
 		// Update current and top right image
@@ -136,7 +135,7 @@ public class ItemSelect : MonoBehaviour
 	// public function used in ui button to select next car
 	public void NextCar ()
 	{
-		Sprite[] icons = itemType == ItemType.Car ? carsIcons : levelIcons;
+		Sprite[] icons = itemType == ItemType.Car ? carsManager.carsIcons : levelIcons;
 		int selectedId = itemType == ItemType.Car ? selectedCarId : selectedLevelId;
 
 		if (selectedId < icons.Length - 1) {

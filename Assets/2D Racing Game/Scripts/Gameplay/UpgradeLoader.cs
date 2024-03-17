@@ -35,28 +35,28 @@ public class UpgradeLoader : MonoBehaviour {
 	}
 
 	void Awake () {
-	
-		// Read from upgrade menu
-		carController.motorPower = engineUpgrade [PlayerPrefs.GetInt ("Engine" + carID.ToString ())];
-		carController.maxSpeed = speedUpgrade [PlayerPrefs.GetInt ("Speed" + carID.ToString ())];
-
-		// Suspension upgrade used as car rotate force on air (when isgrounded is false in CarController script)
-		carController.RotateForce = rotateUpgrade [PlayerPrefs.GetInt ("Suspension" + carID.ToString ())];
-
-		#if UNITY_EDITOR
-		if (debug) {
-			Debug.Log ("Engine Level : " + PlayerPrefs.GetInt ("Engine" + carID.ToString ()).ToString ());
-			Debug.Log ("Speed Level : " + PlayerPrefs.GetInt ("Speed" + carID.ToString ()).ToString ());
-			Debug.Log ("Rotate Level : " + PlayerPrefs.GetInt ("Suspension" + carID.ToString ()).ToString ());
-		}
-		#endif
-
-		manager = GameObject.FindObjectOfType<GameManager> ();
-
-
-		manager.FuelTime = fuelUpgrade [PlayerPrefs.GetInt ("Fuel" + carID.ToString ())];
+		UpadateCarController();
 	}
 
-}
+	private void UpadateCarController ()
+    {
+		manager = FindObjectOfType<GameManager>();
+
+		manager.FuelTime = fuelUpgrade[PlayerPrefs.GetInt("Fuel" + carID.ToString())];
+		// Read from upgrade menu
+		carController.motorPower = engineUpgrade[PlayerPrefs.GetInt("Engine" + carID.ToString())];
+		carController.maxSpeed = speedUpgrade[PlayerPrefs.GetInt("Speed" + carID.ToString())];
+
+		// Suspension upgrade used as car rotate force on air (when isgrounded is false in CarController script)
+		carController.RotateForce = rotateUpgrade[PlayerPrefs.GetInt("Suspension" + carID.ToString())];
+
+		if (debug)
+		{
+			Debug.Log("Engine Level : " + PlayerPrefs.GetInt("Engine" + carID.ToString()).ToString());
+			Debug.Log("Speed Level : " + PlayerPrefs.GetInt("Speed" + carID.ToString()).ToString());
+			Debug.Log("Rotate Level : " + PlayerPrefs.GetInt("Suspension" + carID.ToString()).ToString());
+		}
+	}
+}		
 
 

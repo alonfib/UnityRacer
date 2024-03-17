@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Upgrade : MonoBehaviour
 {
 	[HideInInspector]public int Engine, Fuel, Suspension, Speed;
+	public CarsManager carsManager;
 
 	[Header("Upgrades price")]
 	public int[] enginePrice;
@@ -36,16 +37,18 @@ public class Upgrade : MonoBehaviour
 
 	void Awake ()
 	{
-		LoadUpgrade ();
+		//LoadUpgrade ();
 	}
 
     private void OnEnable()
     {
+		LoadUpgrade ();
 		selectedCarId = PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCar);
 		CurrentCarImage.sprite = carsIcons[selectedCarId];
+		carsManager.UpdateCarView(selectedCarId);
 	}
 
-    public void Back ()
+	public void Back ()
     {
 		gameObject.SetActive(false);
 		SelectMenu.SetActive(true);
@@ -64,6 +67,7 @@ public class Upgrade : MonoBehaviour
 
 	private void UpdateUI()
 	{
+
 		TorqueTXT.text = FormatLevelText(Engine, enginePrice.Length);
 		SuspensionTXT.text = FormatLevelText(Suspension, suspensionPrice.Length);
 		FuelTXT.text = FormatLevelText(Fuel, fuelPrice.Length);
@@ -161,8 +165,6 @@ public class Upgrade : MonoBehaviour
 		Loading.SetActive (true);
 		PlayerPrefs.SetInt (PlayerPrefsKeys.AllScoreTemp, PlayerPrefs.GetInt (PlayerPrefsKeys.Coins));
 		SceneManager.LoadSceneAsync ("Level"+PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedLevel).ToString());
-		//sceneLoading.ActivateNextScene();
-
 		gameObject.SetActive (false);
 
 	}

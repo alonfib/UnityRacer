@@ -9,6 +9,7 @@ TagManager:
   - CoinTrigger
   - MenuMusic
   - CarsManager
+  - CarView
   layers:
   - Default
   - TransparentFX

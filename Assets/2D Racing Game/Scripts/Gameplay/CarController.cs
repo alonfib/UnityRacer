@@ -203,6 +203,7 @@ public class CarController : MonoBehaviour {
 	// Rotate car on air based on speed
 	void Rotate()
 	{
+		// TODO: Add rotatio ON GROUND & OFF GROUND
 		//based on player forward input(Like Hill Climb Racing game)
 		if (Input.GetAxis ("Horizontal") > 0 || HoriTemp > 0) {
 

@@ -30,6 +30,34 @@
     public const string Speed = "Speed";
     public const string AllScoreTemp = "AllScoreTemp";
     public const string Assistance = "Assistance";
-
-    
 }
+
+public static class CarPrefKeys
+{
+    // Upgrades Wheels
+    
+    public const string Tires = "Tires";
+    public const string Wheels = "Wheels";
+    public const string Brakes = "Brakes";
+
+    // Customize
+
+    public const string WheelsColor = "WheelsColor";
+    public const string CarColor = "CarColor";
+
+    // Body Upgrades
+
+    public const string Drivetrain = "Drivetrain";
+    public const string Suspension = "Suspension";
+    //public const string Weight = "Weight";
+
+    // Engine Upgrades
+
+    public const string FuelTank = "FuelTank";
+    public const string Exhaust = "Exhaust";
+    public const string Intake = "Intake";
+    public const string Turbo = "Turbo";
+    //public const string Nitro = "Nitro";
+    //public const string TopSpeed = "TopSpeed";
+}
+
