@@ -45,31 +45,33 @@ public class ItemSelect : MonoBehaviour
 	public GameObject mainMenu;
 
 	// Internal usage
-	int selectedLevelId;
-	int selectedCarId;
+	int selectedLevelIndex;
+	int selectedCarIndex;
 	bool canAnim;
 	bool animaState;
 
 	// List of the items price
 	public int[] itemsPrice;
+	Sprite[] carsIcons;
 
 	void Start ()
 	{
+		carsIcons = carsManager.carsIcons;
 		itemType = ItemType.Level;
 
 		// Display total coins on start
 		coinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
 
 		// Read last selected item ID
-		selectedCarId = PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedCar);
-		selectedLevelId = PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedLevel);
+		selectedCarIndex = PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedCarIndex);
+		selectedLevelIndex = PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedLevelIndex);
 
 		UpdateImages();
 
 		// Internal usage
 		canAnim = true;
 		// Check current item is unlocked?
-		bool isLocked = itemType == ItemType.Car ? !carsManager.IsCarOwned(selectedCarId) : PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelId.ToString()) != 3;
+		bool isLocked = itemType == ItemType.Car ? !carsManager.IsCarOwned(selectedCarIndex) : PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString()) != 3;
 		if(isLocked)
         {
 			lockIcon.SetActive(true);
@@ -81,7 +83,7 @@ public class ItemSelect : MonoBehaviour
 
  
 		// Update item prices
-		currentItem.text = itemsPrice [selectedLevelId].ToString ();
+		currentItem.text = itemsPrice [selectedLevelIndex].ToString ();
 
 	}
 
@@ -95,11 +97,15 @@ public class ItemSelect : MonoBehaviour
 	private void UpdateImages()
 	{
 		Sprite[] icons = itemType == ItemType.Car ? carsManager.carsIcons : levelIcons;
-
-		int selectedId = itemType == ItemType.Car ? selectedCarId : selectedLevelId;
+		int selectedId = itemType == ItemType.Car ? selectedCarIndex : selectedLevelIndex;
 		// Update current and top right image
 		currentItemImage.sprite = icons[selectedId];
 		topRightImage.sprite = icons[selectedId];
+
+		if(itemType  == ItemType.Car)
+        {
+			carsManager.currentCarIndex = selectedCarIndex;
+		}
 
 		// Update next image
 		if (selectedId < icons.Length - 1)
@@ -109,7 +115,7 @@ public class ItemSelect : MonoBehaviour
 		}
 		else
 		{
-			nextItemImage.sprite = null;
+			nextItemImage.sprite = null;	
 			nextItemImage.color = new Color(0, 0, 0, 0); // Hide the next item if it doesn't exist
 		}
 
@@ -125,7 +131,7 @@ public class ItemSelect : MonoBehaviour
 			prevItemImage.color = new Color(0, 0, 0, 0); // Hide the previous item if it doesn't exist
 		}
 
-		bool isLocked = itemType == ItemType.Car ? !carsManager.IsCarOwned(selectedCarId) : PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedId.ToString()) != 3;
+		bool isLocked = itemType == ItemType.Car ? !carsManager.IsCarOwned(selectedCarIndex) : PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedId.ToString()) != 3;
 		if (isLocked)
 			lockIcon.SetActive(true);
 		else
@@ -135,19 +141,19 @@ public class ItemSelect : MonoBehaviour
 	// public function used in ui button to select next car
 	public void NextCar ()
 	{
-		Sprite[] icons = itemType == ItemType.Car ? carsManager.carsIcons : levelIcons;
-		int selectedId = itemType == ItemType.Car ? selectedCarId : selectedLevelId;
+		Sprite[] icons = itemType == ItemType.Car ? carsIcons : levelIcons;
+		int selectedId = itemType == ItemType.Car ? selectedCarIndex : selectedLevelIndex;
 
 		if (selectedId < icons.Length - 1) {
 			if (itemType == ItemType.Car)
-				selectedCarId++;
+				selectedCarIndex++;
 			else if (itemType == ItemType.Level)
-				selectedLevelId++;
+				selectedLevelIndex++;
 			if (canAnim)
 				PlayAnim();
 
-			PlayerPrefs.SetInt(itemType == ItemType.Car ? PlayerPrefsKeys.SelectedCar : PlayerPrefsKeys.SelectedLevel, selectedId);
-			currentItem.text = itemType == ItemType.Car ? carsManager.carPrices[selectedCarId].ToString() : itemsPrice[selectedLevelId].ToString();
+			PlayerPrefs.SetInt(itemType == ItemType.Car ? PlayerPrefsKeys.SelectedCarIndex : PlayerPrefsKeys.SelectedLevelIndex, selectedId);
+			currentItem.text = itemType == ItemType.Car ? carsManager.carPrices[selectedCarIndex].ToString() : itemsPrice[selectedLevelIndex].ToString();
 			PlayClip(okClip);
 			UpdateImages();
 		}
@@ -156,18 +162,18 @@ public class ItemSelect : MonoBehaviour
 	// public function used in ui button to select prev car
 	public void PrevCar ()
 	{
-		int selectedId = itemType == ItemType.Car ? selectedCarId : selectedLevelId;
+		int selectedId = itemType == ItemType.Car ? selectedCarIndex : selectedLevelIndex;
 
 		if (selectedId > 0) {
-			if (itemType == ItemType.Car)
-				selectedCarId--;
+			if (itemType == ItemType.Car)	
+				selectedCarIndex--;
 			else if (itemType == ItemType.Level)
-				selectedLevelId--;
+				selectedLevelIndex--;
 			if (canAnim)
 				PlayAnim ();
 
-			PlayerPrefs.SetInt(itemType == ItemType.Car ? PlayerPrefsKeys.SelectedCar : PlayerPrefsKeys.SelectedLevel, selectedId);
-			currentItem.text = itemType == ItemType.Car ? carsManager.carPrices[selectedCarId].ToString() : itemsPrice[selectedLevelId].ToString();
+			PlayerPrefs.SetInt(itemType == ItemType.Car ? PlayerPrefsKeys.SelectedCarIndex : PlayerPrefsKeys.SelectedLevelIndex, selectedId);
+			currentItem.text = itemType == ItemType.Car ? carsManager.carPrices[selectedCarIndex].ToString() : itemsPrice[selectedLevelIndex].ToString();
 			PlayClip(okClip);
 			UpdateImages();
 		}
@@ -189,14 +195,16 @@ public class ItemSelect : MonoBehaviour
 
 	public void Next()
 	{
+		currentItem.text = itemType == ItemType.Car ? carsManager.carPrices[selectedCarIndex].ToString() : itemsPrice[selectedLevelIndex].ToString();
+
 		if (itemType == ItemType.Level)
 		{
-			bool isGameOwned = PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelId.ToString()) == 3;
+			bool isGameOwned = PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString()) == 3;
 			if (isGameOwned)
 			{
 				itemType = ItemType.Car;
 				UpdateImages();
-				PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedLevel, selectedLevelId);
+				PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedLevelIndex, selectedLevelIndex);
 			}
 			else
 			{
@@ -204,9 +212,8 @@ public class ItemSelect : MonoBehaviour
 			}
 		} else if(itemType == ItemType.Car)
         {
-			Debug.Log("Next Func" + selectedCarId); // Debug statement
-
-			PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCar, selectedCarId);
+			Debug.Log("Next Func" + selectedCarIndex); // Debug statement
+			PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCarIndex, selectedCarIndex);
 			gameObject.SetActive(false);
 			nextMen.SetActive(true);
 		}
@@ -215,6 +222,8 @@ public class ItemSelect : MonoBehaviour
 
 	public void Back()
 	{
+		currentItem.text = itemType == ItemType.Car ? carsManager.carPrices[selectedCarIndex].ToString() : itemsPrice[selectedLevelIndex].ToString();
+
 		if (itemType == ItemType.Car)
 		{
 			itemType = ItemType.Level;
@@ -231,25 +240,22 @@ public class ItemSelect : MonoBehaviour
 	public void SelectCurrent ()
 	{
 		if (itemType == ItemType.Level) {
-			bool isGameOwned = PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelId.ToString()) == 3;
+			bool isGameOwned = PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString()) == 3;
 			if (isGameOwned) {
 				itemType = ItemType.Car;
 				UpdateImages();
-
-				//gameObject.SetActive (false);
-				//nextMen.SetActive (true);
-				PlayerPrefs.SetInt (PlayerPrefsKeys.SelectedLevel, selectedLevelId);
+				PlayerPrefs.SetInt (PlayerPrefsKeys.SelectedLevelIndex, selectedLevelIndex);
 			} else {
 				PlayClip(errorClip);
 			}
 		}
         if (itemType == ItemType.Car)
         {
-            if (PlayerPrefs.GetInt(PlayerPrefsKeys.Car + selectedLevelId.ToString()) == 3)
+            if (carsManager.IsCarOwned(selectedCarIndex))
             {
                 gameObject.SetActive(false);
                 nextMen.SetActive(true);
-                PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCar, selectedLevelId);
+                PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCarIndex, selectedCarIndex);
             }
             else
             {
@@ -263,11 +269,11 @@ public class ItemSelect : MonoBehaviour
 	{
 
 		if (itemType == ItemType.Level) {
-			if (PlayerPrefs.GetInt (PlayerPrefsKeys.Level + selectedLevelId.ToString ()) != 3) {
-				if (PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) >= itemsPrice [selectedLevelId]) {
-					int newCoinsCount = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins) - itemsPrice[selectedLevelId];
+			if (PlayerPrefs.GetInt (PlayerPrefsKeys.Level + selectedLevelIndex.ToString ()) != 3) {
+				if (PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) >= itemsPrice [selectedLevelIndex]) {
+					int newCoinsCount = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins) - itemsPrice[selectedLevelIndex];
 					PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, newCoinsCount);
-					PlayerPrefs.SetInt (PlayerPrefsKeys.Level + selectedLevelId.ToString (), 3);
+					PlayerPrefs.SetInt (PlayerPrefsKeys.Level + selectedLevelIndex.ToString (), 3);
 					lockIcon.SetActive (false);
 					coinsTXT.text = newCoinsCount.ToString ();
 				} else
@@ -276,7 +282,7 @@ public class ItemSelect : MonoBehaviour
 		}
 
 		if (itemType == ItemType.Car) {
-			carsManager.BuyCar(selectedCarId, () =>
+			carsManager.BuyCar(selectedCarIndex, () =>
 			{
 			lockIcon.SetActive (false);
 			coinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();

@@ -10,6 +10,10 @@ TagManager:
   - MenuMusic
   - CarsManager
   - CarView
+  - ShopLock
+  - CarModel
+  - Wheel
+  - Car
   layers:
   - Default
   - TransparentFX
@@ -46,4 +50,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Main
+    uniqueID: 2484441613
     locked: 0

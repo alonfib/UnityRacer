@@ -10,8 +10,8 @@
     public const string Coins = "Coins";
     public const string Level = "Level";
     public const string Car = "Car";
-    public const string SelectedCar = "SelectedCar";
-    public const string SelectedLevel = "SelectedLevel";
+    public const string SelectedCarIndex = "SelectedCarIndex";
+    public const string SelectedLevelIndex = "SelectedLevelIndex";
 
     // Add new keys from MenuTools.cs
     public const string FirstRun = "FirstRun";
@@ -32,10 +32,13 @@
     public const string Assistance = "Assistance";
 }
 
-public static class CarPrefKeys
+public static class CarItemsPrefKeys
 {
+    public const string Car = PlayerPrefsKeys.Car;
+    public const string Selected = "Selected";
+
     // Upgrades Wheels
-    
+
     public const string Tires = "Tires";
     public const string Wheels = "Wheels";
     public const string Brakes = "Brakes";

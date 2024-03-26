@@ -25,7 +25,6 @@ public class Upgrade : MonoBehaviour
 	public GameObject Shop;
 	public GameObject Loading;
 	public GameObject SelectMenu;
-	public Image CurrentCarImage;
 	public Sprite[] carsIcons;
 
 	[Header("Sound Clips")]
@@ -37,14 +36,14 @@ public class Upgrade : MonoBehaviour
 
 	void Awake ()
 	{
-		//LoadUpgrade ();
+		LoadUpgrade ();
+		carsManager.UpdateCarView(selectedCarId);
 	}
 
-    private void OnEnable()
+	private void OnEnable()
     {
-		LoadUpgrade ();
-		selectedCarId = PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCar);
-		CurrentCarImage.sprite = carsIcons[selectedCarId];
+
+		selectedCarId = PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCarIndex);
 		carsManager.UpdateCarView(selectedCarId);
 	}
 
@@ -56,7 +55,7 @@ public class Upgrade : MonoBehaviour
 	
 	public void LoadUpgrade()
 	{
-		selectedCarId = PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedCar);
+		selectedCarId = PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedCarIndex);
 		Engine = PlayerPrefs.GetInt (PlayerPrefsKeys.Engine + selectedCarId.ToString ());
 		Fuel = PlayerPrefs.GetInt (PlayerPrefsKeys.Fuel + selectedCarId.ToString ());
 		Suspension = PlayerPrefs.GetInt (PlayerPrefsKeys.Suspension + selectedCarId.ToString ());
@@ -164,7 +163,7 @@ public class Upgrade : MonoBehaviour
 		
 		Loading.SetActive (true);
 		PlayerPrefs.SetInt (PlayerPrefsKeys.AllScoreTemp, PlayerPrefs.GetInt (PlayerPrefsKeys.Coins));
-		SceneManager.LoadSceneAsync ("Level"+PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedLevel).ToString());
+		SceneManager.LoadSceneAsync ("Level"+PlayerPrefs.GetInt (PlayerPrefsKeys.SelectedLevelIndex).ToString());
 		gameObject.SetActive (false);
 
 	}

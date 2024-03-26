@@ -408,6 +408,8 @@ MonoBehaviour:
   ID: Car_0
   Price: 2000
   texture2D: {fileID: 2800000, guid: 469034c89b2f1064383d903e604d59f2, type: 3}
+  RearWheel: {fileID: 1600584276540302}
+  FrontWheel: {fileID: 1938282680485846}
 --- !u!1 &1408977823619404
 GameObject:
   m_ObjectHideFlags: 0

@@ -6711,7 +6711,7 @@ GameObject:
   - component: {fileID: -8728939689696569109}
   m_Layer: 2
   m_Name: Car7
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6812,6 +6812,8 @@ MonoBehaviour:
   ID: Car_7
   Price: 14000
   texture2D: {fileID: 2800000, guid: e4910924807f1a544a7ec7b837c73622, type: 3}
+  RearWheel: {fileID: 1000012632671220}
+  FrontWheel: {fileID: 1000012472256502}
 --- !u!1 &1000014141830508
 GameObject:
   m_ObjectHideFlags: 0
