@@ -16,14 +16,13 @@ public class WheelsShop : MonoBehaviour
 
     private void Start()
     {
-        //ownedWheels = new ;
         BUTTONS_IN_SHOP = BuyButtons.Length;
-        UpdateShopPage();
     }
 
     private void OnEnable()
     {
         UpdateShopPage();
+        currentPage = 0;
 
         if (ownedWheelsIds == null)
         {
@@ -47,13 +46,12 @@ public class WheelsShop : MonoBehaviour
     {
         // Check if the wheel is already owned
         int wheelIndex = BUTTONS_IN_SHOP * currentPage + selector;
-        Wheel wheel = GetWheelByIndex(wheelIndex);
+        Wheel wheel = carsManager.AllWheelsPrefabs[wheelIndex];
         if (carsManager.IsItemOwned(CarItemsPrefKeys.Wheels, wheel.ID))
         {
-            Debug.Log("Wheel already owned: " + wheel.ID);
+            Debug.Log("Wheel owned: " + wheel.ID);
             carsManager.currentWheelIndex = wheelIndex;
-            //UpdateShopPage();
-            carsManager.UpdateWheels(wheelIndex);
+            carsManager.UpdateCurrentWheels(wheelIndex);
             return; // Early return if the wheel is already owned
         }
 
@@ -68,7 +66,7 @@ public class WheelsShop : MonoBehaviour
             carsManager.AddItemToCar(CarItemsPrefKeys.Wheels, ownedWheelsIds);
             carsManager.currentWheelIndex = wheelIndex;
             Debug.Log("Wheel purchased: " + wheel.ID);
-            carsManager.UpdateWheels(wheelIndex);
+            carsManager.UpdateCurrentWheels(wheelIndex);
             UpdateShopPage();
         }
         else
@@ -79,28 +77,18 @@ public class WheelsShop : MonoBehaviour
         }
     }
 
-    //Helper method to get a Wheel object by its index
-    public Wheel GetWheelByIndex(int wheelIndex)
-    {
-        // Assuming you have a similar Wheel component as the Car component on the wheel prefabs
-        GameObject wheelPrefab = carsManager.WheelsPrefabs[wheelIndex]; // You need to define this array similar to CarsPrefabs
-        Wheel wheel = wheelPrefab.GetComponent<Wheel>();
-        return wheel;
-    }
-
-
     void UpdateShopPage()
     {
         //carsManager.UpdateCarView(carsManager.currentCarIndex);
         for (int i = 0; i < BUTTONS_IN_SHOP; i++)
         {
             int wheelIndex = (BUTTONS_IN_SHOP * currentPage) + i;
-            if (wheelIndex < carsManager.wheelsImages.Length)
+            if (wheelIndex < carsManager.wheelsSprites.Length)
             {
                 RawImage image = BuyButtons[i].GetComponentInChildren<RawImage>();
                 if (image != null)
                 {
-                    image.texture = carsManager.wheelsImages[wheelIndex];
+                    image.texture = carsManager.wheelsSprites[wheelIndex].texture;
                     BuyButtons[i].SetActive(true);
                 }
 
@@ -118,7 +106,7 @@ public class WheelsShop : MonoBehaviour
                 if (lockIcon != null)
                 {
                     // Check if the wheel is owned
-                    Wheel wheel = GetWheelByIndex(wheelIndex);
+                    Wheel wheel = carsManager.AllWheelsPrefabs[wheelIndex];
                     bool isOwned = carsManager.IsItemOwned(CarItemsPrefKeys.Wheels, wheel.ID);
                     lockIcon.SetActive(!isOwned);
                 }

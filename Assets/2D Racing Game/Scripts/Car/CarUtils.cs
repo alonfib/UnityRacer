@@ -1,13 +1,13 @@
 ﻿using System;
 
-    public static class CarUtils // A class to hold utility methods related to cars
+public static class CarUtils // A class to hold utility methods related to cars
+{
+    // Encapsulates your CarIdFormatter method inside a class
+    public static string CarIdFormatter(string carId, string carPrefKey)
     {
-        // Encapsulates your CarIdFormatter method inside a class
-        public static string CarIdFormatter(string carId, string carPrefKey)
-        {
-            return carId + carPrefKey;
-        }
+        return carId + carPrefKey;
     }
+}
 
 public enum DrivetrainType
 {

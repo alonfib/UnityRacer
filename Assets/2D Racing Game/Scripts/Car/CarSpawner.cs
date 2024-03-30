@@ -6,6 +6,6 @@ public class CarInitializer : MonoBehaviour
 
 	void Start()
 	{
-		Instantiate(cars[PlayerPrefs.GetInt("SelectedCar")], transform.position, transform.rotation);
+		Instantiate(cars[PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCarIndex)], transform.position, transform.rotation);
 	}
 }
