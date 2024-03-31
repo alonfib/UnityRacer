@@ -18,6 +18,8 @@ public class Car : MonoBehaviour
     int brakesUpgrade = 0;
     int tiresUpgrade = 0;
 
+    public Wheel DefaultWheel;
+
     //string currentTire = "default";
     //string[] tires;
 
@@ -64,6 +66,11 @@ public class Car : MonoBehaviour
             {
                 UpdateCurrentWheels(lastSelectedWheel);
             }
+        } else
+        {
+            AddItem(CarItemsPrefKeys.Wheels, DefaultWheel.ID);
+            SelectItem(CarItemsPrefKeys.Wheels, DefaultWheel.ID);
+            UpdateCurrentWheels(DefaultWheel);
         }
     }
 

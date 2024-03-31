@@ -6814,6 +6814,8 @@ MonoBehaviour:
   texture2D: {fileID: 2800000, guid: e4910924807f1a544a7ec7b837c73622, type: 3}
   RearWheel: {fileID: 1000012632671220}
   FrontWheel: {fileID: 1000012472256502}
+  DefaultWheel: {fileID: 1995595091657893977, guid: 6b00bdfc768e54190b62b857eee65cfe,
+    type: 3}
 --- !u!1 &1000014141830508
 GameObject:
   m_ObjectHideFlags: 0
