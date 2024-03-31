@@ -127,9 +127,14 @@ public class CarsManager : MonoBehaviour
     public void SelectCar(int carIndex)
     {
         currentCarIndex = carIndex;
-        PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCarIndex, carIndex);
+        PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCarIndex, currentCarIndex);
         UpdateCarModel(carIndex);
         currentCar = GetCurrentCar();
+    }
+
+    public void SaveSelectedCar()
+    {
+        PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCarIndex, currentCarIndex);
     }
 
     public void SelectCarById(string carId)
@@ -168,15 +173,9 @@ public class CarsManager : MonoBehaviour
 
     // car shop functions
 
-    public void BuyCar(int carIndex, System.Action onPurchase)
+    public void BuyCar()
     {
-        // Check if the carId is within the range of available cars
-        if (carIndex < 0 || carIndex >= AllCarsPrefabs.Length)
-        {
-            Debug.LogError("Car ID is out of range: " + carIndex);
-            return;
-        }
-
+        int carIndex = currentCarIndex;
         if (IsCarOwned(carIndex))
         {
             Debug.Log("Car owned");
@@ -194,7 +193,6 @@ public class CarsManager : MonoBehaviour
 
             // Optionally, update UI or give feedback to the player
             Debug.Log("Car purchased: " + carIndex);
-            onPurchase();
         }
         else
             shopOffer.SetActive(true);

@@ -281,12 +281,12 @@ public class ItemSelect : MonoBehaviour
 			}
 		}
 
-		if (itemType == ItemType.Car) {
-			carsManager.BuyCar(selectedCarIndex, () =>
-			{
-			lockIcon.SetActive (false);
-			coinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
-			});
-		}
+			//if (itemType == ItemType.Car) {
+			//	carsManager.BuyCar(selectedCarIndex, () =>
+			//	{
+			//	lockIcon.SetActive (false);
+			//	coinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
+			//	});
+			//}
 	}
 }
