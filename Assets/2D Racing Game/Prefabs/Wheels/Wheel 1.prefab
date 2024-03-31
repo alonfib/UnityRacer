@@ -87,8 +87,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: Wheel_1
-  Price: 5000
+  Price: 100
   texture2D: {fileID: 2800000, guid: dac1846ba3e48094a8d0eea1905378e9, type: 3}
+  sprite: {fileID: 21300000, guid: 705d8168421a7430da68559738fd331a, type: 3}
 --- !u!212 &-2141753299171275106
 SpriteRenderer:
   m_ObjectHideFlags: 0

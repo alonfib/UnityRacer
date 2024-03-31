@@ -9084,6 +9084,7 @@ MonoBehaviour:
   - {fileID: 133601360}
   shopOffer: {fileID: 1236811242}
   currentPage: 0
+  items: {fileID: 1195995190}
 --- !u!1 &921600332
 GameObject:
   m_ObjectHideFlags: 0
@@ -11785,7 +11786,7 @@ GameObject:
   - component: {fileID: 1195995190}
   m_Layer: 0
   m_Name: Items
-  m_TagString: Untagged
+  m_TagString: CarItems
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11870,11 +11871,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: d87b9541d85534c459d598f54f6f96fb, type: 3}
   - {fileID: 2800000, guid: b8620abd07f323f43873f39b31877a5c, type: 3}
   - {fileID: 2800000, guid: e4910924807f1a544a7ec7b837c73622, type: 3}
-  wheelsSprites:
-  - {fileID: 21300000, guid: fcf6ce98047ba4f58be73422aefe7901, type: 3}
-  - {fileID: 21300000, guid: 705d8168421a7430da68559738fd331a, type: 3}
-  - {fileID: 21300000, guid: 7964d9b1fca96439193f258d34d8f223, type: 3}
-  - {fileID: 21300000, guid: 33ee200e4940f4f2c95e0fd8e6fe4927, type: 3}
   AllCarsPrefabs:
   - {fileID: 2234391003336776319, guid: f2f8ba238f13f554e8a6cecc9bde8b9f, type: 3}
   - {fileID: 3975039344588612352, guid: a88811a7db5a59f4a968cc4500794a3a, type: 3}
@@ -11884,13 +11880,8 @@ MonoBehaviour:
   - {fileID: -477175781563163355, guid: 93858210294553f4f85fde3802f14733, type: 3}
   - {fileID: -284122876754158328, guid: 56306aed10cedc7419828f79d04b3159, type: 3}
   - {fileID: -8728939689696569109, guid: 2d09151c2dd87a542b5a193381181332, type: 3}
-  AllWheelsPrefabs:
-  - {fileID: 1995595091657893977, guid: 6b00bdfc768e54190b62b857eee65cfe, type: 3}
-  - {fileID: 1995595091657893977, guid: 56b11a9fe39b04aea95374fc274bd728, type: 3}
-  - {fileID: 1995595091657893977, guid: 7c91d95104f6d476aa53fecc25886f17, type: 3}
-  - {fileID: 1995595091657893977, guid: 4474a0691be1942eab797b4b0ffcb091, type: 3}
   carPrices: d0070000a00f000070170000401f000010270000e02e0000b0360000803e0000
-  currentWheelIndex: 0
+  items: {fileID: 1195995190}
   shopOffer: {fileID: 1236811242}
   currentCar: {fileID: 1711407714}
   CarModel: {fileID: 2966837350208454476}

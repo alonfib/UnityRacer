@@ -16,6 +16,7 @@ TagManager:
   - Car
   - FrontWheel
   - RearWheel
+  - CarItems
   layers:
   - Default
   - TransparentFX

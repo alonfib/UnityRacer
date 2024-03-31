@@ -13,7 +13,6 @@ public class GarageMenu: MonoBehaviour
     {
         if(PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCarIndex) == 0)
         {
-            Debug.Log(PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCarIndex));
             PrevButton.SetActive(false);
         }
         else

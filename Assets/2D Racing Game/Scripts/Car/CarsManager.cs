@@ -8,12 +8,9 @@ public class CarsManager : MonoBehaviour
 {
     public Sprite[] carsIcons;
     public Texture2D[] carsImages;
-    public Sprite[] wheelsSprites;
     public Car[] AllCarsPrefabs;
-    public Wheel[] AllWheelsPrefabs;
-
     public int[] carPrices;
-    public int currentWheelIndex = 0;
+    public Items items;
 
     public GameObject shopOffer;
     public Car currentCar;
@@ -28,7 +25,7 @@ public class CarsManager : MonoBehaviour
 
     void Start()
     {
-        ownedCarsIds = GetOwnedItemsIds(PlayerPrefsKeys.OwnedCarsIds);
+        ownedCarsIds = GetOwnedCars();
         if(ownedCarsIds.ToArray().Length == 0)
         {
             ownedCarsIds.Add(AllCarsPrefabs[0].ID);
@@ -37,7 +34,6 @@ public class CarsManager : MonoBehaviour
         InitializeOwnedCarsPrefabs(ownedCarsIds);
         currentCar = GetCurrentCar();
     }
-
 
     public Car GetCurrentCar()
     {
@@ -69,7 +65,6 @@ public class CarsManager : MonoBehaviour
         }
     }
 
-
     void InitializeOwnedCarsPrefabs(List<string> carIds)
     {
         OwnedCarsPrefabs.Clear();
@@ -95,9 +90,9 @@ public class CarsManager : MonoBehaviour
         return car;
     }
 
-    List<string> GetOwnedItemsIds(string prefKey)
+    List<string> GetOwnedCars()
     {
-        string savedIds = PlayerPrefs.GetString(prefKey);
+        string savedIds = PlayerPrefs.GetString(PlayerPrefsKeys.OwnedCarsIds);
         if (!string.IsNullOrEmpty(savedIds))
         {
             string[] ids = savedIds.Split(',');
@@ -133,8 +128,9 @@ public class CarsManager : MonoBehaviour
     {
         currentCarIndex = carIndex;
         PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCarIndex, carIndex);
-        UpdateCarView(carIndex);
+        UpdateCarModel(carIndex);
         currentCar = GetCurrentCar();
+        currentCar.initCar(); 
     }
 
     public void SelectCarById(string carId)
@@ -158,7 +154,7 @@ public class CarsManager : MonoBehaviour
                 PlayerPrefs.Save();
 
                 // Update the car view to reflect the change.
-                UpdateCarView(index);
+                UpdateCarModel(index);
             }
             else
             {
@@ -175,9 +171,17 @@ public class CarsManager : MonoBehaviour
 
     public void BuyCar(int carIndex, System.Action onPurchase)
     {
+        // Check if the carId is within the range of available cars
+        if (carIndex < 0 || carIndex >= AllCarsPrefabs.Length)
+        {
+            Debug.LogError("Car ID is out of range: " + carIndex);
+            return;
+        }
+
         if (IsCarOwned(carIndex))
         {
-            UpdateCarView(carIndex);
+            Debug.Log("Car owned");
+            return;
         }
 
         Car car = GetCarByIndex(carIndex);
@@ -187,7 +191,7 @@ public class CarsManager : MonoBehaviour
         {
             PlayerPrefs.SetInt(PlayerPrefsKeys.Coins, currentCoins - car.Price);
             AddToOwnedCarsIds(car.ID);
-
+            OwnedCarsPrefabs.Add(car);
 
             // Optionally, update UI or give feedback to the player
             Debug.Log("Car purchased: " + carIndex);
@@ -199,14 +203,6 @@ public class CarsManager : MonoBehaviour
 
     public bool IsCarOwned(int carIndex)
     {
-        // Check if the carId is within the range of available cars
-        if (carIndex < 0 || carIndex >= AllCarsPrefabs.Length)
-        {
-            Debug.LogError("Car ID is out of range: " + carIndex);
-            // true for BuyCar function validation
-            return true;
-        }
-
         // Check if the carId is in the ownedCars array
         Car car = GetCarByIndex(carIndex);
         if (System.Array.IndexOf(ownedCarsIds.ToArray(), car.ID) != -1)
@@ -229,7 +225,7 @@ public class CarsManager : MonoBehaviour
 
     // current car functions
 
-    public void UpdateCarView(int carIndex)
+    public void UpdateCarModel(int carIndex)
     {
         if (carIndex < 0 || carIndex >= AllCarsPrefabs.Length)
         {
@@ -253,6 +249,7 @@ public class CarsManager : MonoBehaviour
                                                                        // Optionally, you might want to reset or adjust the scale if necessary
             carInstance.transform.localScale = Vector3.one;
             currentCar = GetCurrentCar();
+            currentCar.initCar();
         }
         else
         {
@@ -265,62 +262,38 @@ public class CarsManager : MonoBehaviour
     public void UpdateCurrentCarItem(string carItemPrefKey, string itemID)
     {
         Car car = GetCurrentCar();
-        PlayerPrefs.SetString(string.Concat(CarItemsPrefKeys.Selected, car.ID, carItemPrefKey), itemID);
-        PlayerPrefs.Save(); // Make sure to save changes
+        car.SelectItem(carItemPrefKey, itemID);
     }
 
     // In case itemID is number.
     public void UpdateCurrentCarItem(string carItemPrefKey, int itemID)
     {
-        UpdateCurrentCarItem(carItemPrefKey, itemID.ToString()); // Convert int to string and call the string version
+        UpdateCurrentCarItem(carItemPrefKey, itemID.ToString());
     }
 
     public string GetCurrentSelectedItem(string carItemPrefKey)
     {
          Car car = GetCurrentCar();
-        if (car == null)
-        {
-            Debug.LogError("Car not found at current index: " + currentCarIndex);
-            return null; // or return string.Empty depending on your error handling preference
-        }
-
-        string fullPrefKey = CarItemsPrefKeys.Selected + car.ID + carItemPrefKey;
-        return PlayerPrefs.GetString(fullPrefKey, string.Empty); // Returns the item ID or an empty string if not found
+        return car.GetSelectedItemId(carItemPrefKey);
     }
 
-    public void UpdateCurrentWheels(int wheelIndex)
+    public void SelectWheels(int wheelIndex)
     {
-        currentWheelIndex = wheelIndex;
-
-        // Check if the wheelIndex is valid
-        if (wheelIndex < 0 || wheelIndex >= wheelsSprites.Length)
-        {
-            Debug.LogError("Wheel index is out of range.");
-            return;
-        }
-
         Car currentCar = GetCurrentCar();
-        currentCar.UpdateCurrentWheels(wheelsSprites[wheelIndex]);
+        Wheel wheel = items.wheels[wheelIndex];
+        currentCar.UpdateCurrentWheels(wheel);
+        currentCar.SelectItem(CarItemsPrefKeys.Wheels, wheel.ID);
     }
 
-    public bool IsItemOwned(string carItemPrefKey, string itemID)
+    public bool IsItemOwned(string carItemPrefKey, string itemId)
     {
         Car car = GetCurrentCar(); // This assumes you're checking for an item related to a specific car
-        string formattedKey = car.ID + carItemPrefKey; // This will create a unique key for each car and item type (e.g., "Car01Wheels")
-        string[] ownedItemIDs = GetOwnedItemsIds(formattedKey).ToArray();
-        bool isOwned = ownedItemIDs.Contains(itemID);
-
-        return isOwned;
+        return car.IsItemOwned(carItemPrefKey, itemId);
     }
 
-    public void AddItemToCar(string carPrefKey, string[] formattedItems)
+    public void AddItemToCar(string carPrefKey, string itemId)
     {
         Car car = GetCurrentCar();
-        string updatedItems = string.Join(",", formattedItems);
-        string formattedKey = car.ID + carPrefKey;
-
-        PlayerPrefs.SetString(formattedKey, updatedItems);
-        PlayerPrefs.Save();
+        car.AddItem(carPrefKey, itemId);
     }
-
 }   

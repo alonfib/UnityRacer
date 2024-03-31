@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 50000011973403086}
   m_Layer: 2
   m_Name: Drive_Wheel
-  m_TagString: Untagged
+  m_TagString: RearWheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5636,7 +5636,7 @@ GameObject:
   - component: {fileID: 50000011990901106}
   m_Layer: 2
   m_Name: Wheel_1
-  m_TagString: Untagged
+  m_TagString: FrontWheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

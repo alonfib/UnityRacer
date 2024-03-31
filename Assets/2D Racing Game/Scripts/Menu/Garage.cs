@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Upgrade : MonoBehaviour
+public class Garage : MonoBehaviour
 {
 	[HideInInspector]public int Engine, Fuel, Suspension, Speed;
 	public CarsManager carsManager;
@@ -37,14 +37,14 @@ public class Upgrade : MonoBehaviour
 	void Awake ()
 	{
 		LoadUpgrade ();
-		carsManager.UpdateCarView(selectedCarId);
+		//carsManager.UpdateCarGModel(selectedCarId);
 	}
 
 	private void OnEnable()
     {
 
 		selectedCarId = PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCarIndex);
-		carsManager.UpdateCarView(selectedCarId);
+		carsManager.UpdateCarModel(selectedCarId);
 	}
 
 	public void Back ()
