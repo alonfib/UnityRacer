@@ -130,7 +130,6 @@ public class CarsManager : MonoBehaviour
         PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCarIndex, carIndex);
         UpdateCarModel(carIndex);
         currentCar = GetCurrentCar();
-        currentCar.initCar(); 
     }
 
     public void SelectCarById(string carId)
@@ -249,7 +248,6 @@ public class CarsManager : MonoBehaviour
                                                                        // Optionally, you might want to reset or adjust the scale if necessary
             carInstance.transform.localScale = Vector3.one;
             currentCar = GetCurrentCar();
-            currentCar.initCar();
         }
         else
         {

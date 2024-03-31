@@ -82,6 +82,15 @@ public class MenuTools : MonoBehaviour {
 		}
 	}
 
+	public void StartGame()
+	{
+		//Loading.SetActive(true);
+		PlayerPrefs.SetInt(PlayerPrefsKeys.AllScoreTemp, PlayerPrefs.GetInt(PlayerPrefsKeys.Coins));
+		SceneManager.LoadSceneAsync("Level" + PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedLevelIndex).ToString());
+		gameObject.SetActive(false);
+	}
+
+
 	public void RateAPP(string packageName)
 	{
 		OpenGooglePlay(packageName);

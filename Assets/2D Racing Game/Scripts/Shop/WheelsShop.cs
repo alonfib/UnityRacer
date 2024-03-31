@@ -9,6 +9,7 @@ public class WheelsShop : MonoBehaviour
     public CarsManager carsManager;
     public GameObject[] BuyButtons;
     public GameObject shopOffer;
+    public Text CoinsTXT;
 
     public int currentPage = 0;
     List<string> ownedWheelsIds;
@@ -23,13 +24,22 @@ public class WheelsShop : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateShopPage();
+        StartCoroutine(DelayedInitialize());
+
         currentPage = 0;
 
         if (ownedWheelsIds == null)
         {
             ownedWheelsIds = new List<string>();
         }
+    }
+
+    IEnumerator DelayedInitialize()
+    {
+        // Wait for the next frame to ensure all objects are loaded
+        yield return null;
+        UpdateShopPage();
+        // Further initialization here
     }
 
     public void NextPage()
@@ -55,11 +65,15 @@ public class WheelsShop : MonoBehaviour
             carsManager.SelectWheels(wheelIndex);
             return;
         }
+        Debug.Log("Item Not Owned");
 
         int currentCoins = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins);
         if (currentCoins >= wheel.Price)
         {
-            PlayerPrefs.SetInt(PlayerPrefsKeys.Coins, currentCoins - wheel.Price);
+            int formattedCoins = currentCoins - wheel.Price;
+            CoinsTXT.text = formattedCoins.ToString();
+
+            PlayerPrefs.SetInt(PlayerPrefsKeys.Coins, formattedCoins);
             carsManager.AddItemToCar(CarItemsPrefKeys.Wheels, wheel.ID);
             carsManager.SelectWheels(wheelIndex);
             UpdateShopPage();

@@ -45,7 +45,7 @@ public class Car : MonoBehaviour
         // Further initialization here
     }
 
-    public void initCar()
+    void initCar()
     {
         items = GameObject.FindGameObjectWithTag("CarItems").GetComponent<Items>();
         InitWheels();
@@ -99,16 +99,12 @@ public class Car : MonoBehaviour
     public void UpdateCurrentWheels(Wheel wheel)
     {
         GetWheelsObjects();
-        Debug.Log("UpdateCurrentWheels");
-        Debug.Log("wheel id" + wheel.ID);
-        Debug.Log("wheel id" + wheel.sprite);
-
         Sprite newSprite = wheel.sprite;
         Vector2 baselineSize = new Vector2(1.1f, 1.1f); // adjust this based on your needs
         UpdateWheelSprite(FrontWheel, newSprite, baselineSize);
         UpdateWheelSprite(RearWheel, newSprite, baselineSize);
     }
-
+        
     public List<string> GetOwnedItemsIds(string prefKey)
     {
         string savedIds = PlayerPrefs.GetString(ID + prefKey);
@@ -130,8 +126,7 @@ public class Car : MonoBehaviour
 
     public bool IsItemOwned(string carItemPrefKey, string itemID)
     {
-        string formattedKey = ID + carItemPrefKey; // This will create a unique key for each car and item type (e.g., "Car01Wheels")
-        List<string> ownedItemIDs = GetOwnedItemsIds(formattedKey);
+        List<string> ownedItemIDs = GetOwnedItemsIds(carItemPrefKey);
         bool isOwned = ownedItemIDs.Contains(itemID);
         return isOwned;
     }
@@ -141,8 +136,7 @@ public class Car : MonoBehaviour
         List<string> formattedItems = GetOwnedItemsIds(carPrefKey);
         formattedItems.Add(itemId);
         string updatedItems = string.Join(",", formattedItems);
-        string formattedKey = ID + carPrefKey;
-
+        string formattedKey = ID + carPrefKey; // This will create a unique key for each car and item type (e.g., "Car01Wheels")
         PlayerPrefs.SetString(formattedKey, updatedItems);
         PlayerPrefs.Save();
     }

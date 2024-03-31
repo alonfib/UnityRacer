@@ -1643,40 +1643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ac66e6fced53a4ebc341f8f4597c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Engine: 0
-  Fuel: 0
-  Suspension: 0
-  Speed: 0
-  carsManager: {fileID: 1201208749}
-  enginePrice: 64000000c80000002c01000090010000f401000058020000bc0200002003000084030000e8030000
-  fuelPrice: 64000000c80000002c01000090010000f401000058020000bc0200002003000084030000e8030000
-  suspensionPrice: 64000000c80000002c01000090010000f401000058020000bc0200002003000084030000e8030000
-  speedPrice: 64000000c80000002c01000090010000f401000058020000bc0200002003000084030000e8030000
-  CoinsTXT: {fileID: 346905912}
-  TorqueTXT: {fileID: 1288255055}
-  SuspensionTXT: {fileID: 2080985751}
-  FuelTXT: {fileID: 85625531}
-  SpeedTXT: {fileID: 406225834}
-  priceTorqueTXT: {fileID: 1122509326}
-  priceSuspensionTXT: {fileID: 1603430052}
-  priceFuelTXT: {fileID: 1109983772}
-  priceSpeedTXT: {fileID: 1162989478}
-  Shop: {fileID: 443632852}
-  Loading: {fileID: 832085065}
-  SelectMenu: {fileID: 52939246}
-  carsIcons:
-  - {fileID: 21300000, guid: 91bc4358e173cb7448e1565d001642d4, type: 3}
-  - {fileID: 21300000, guid: 113d338687d9b064bbee2e4cb34e224b, type: 3}
-  - {fileID: 21300000, guid: 3ca02cab8b54ef7419b31c7782d0eb73, type: 3}
-  - {fileID: 21300000, guid: f665a5f4f69619d4186104444f71700a, type: 3}
-  - {fileID: 21300000, guid: dd08962d95c15fe4e81919b593ff39e6, type: 3}
-  - {fileID: 21300000, guid: 11a99c9ac775ce24ea0b4a408f6a2ebe, type: 3}
-  - {fileID: 21300000, guid: a7bde2d8f336cb64da7730ad67c7058c, type: 3}
-  - {fileID: 21300000, guid: 03e91bfc231b70f45bea6c17a592b73a, type: 3}
-  Buy: {fileID: 8300000, guid: 5cb4609eff1083a41ab1f32a286a694e, type: 3}
-  Caution: {fileID: 8300000, guid: a2a4d28505c2ce3469b26d9e4c80f3fb, type: 3}
-  audioSource: {fileID: 115869257}
-  ControllAsist: {fileID: 0}
 --- !u!114 &115869255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2126,12 +2092,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1152910965}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetTrue
-        m_Mode: 2
+        m_TargetAssemblyTypeName: MenuTools, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 52939246}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2144,18 +2110,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1152910965}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetFalse
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1643217866}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9083,6 +9037,7 @@ MonoBehaviour:
   - {fileID: 1895070113}
   - {fileID: 133601360}
   shopOffer: {fileID: 1236811242}
+  CoinsTXT: {fileID: 0}
   currentPage: 0
   items: {fileID: 1195995190}
 --- !u!1 &921600332
