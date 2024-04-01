@@ -17,45 +17,55 @@ public class MenuTools : MonoBehaviour {
 
 	public GameObject manuMusic;
 
-	void Start () {
-	
-		if(GameObject.Find ("LevelMusic(Clone)"))
-			Destroy (GameObject.Find ("LevelMusic(Clone)"));
+	void Start()
+	{
 
-		if(!GameObject.Find("MenuMusic(Clone)"))
-			Instantiate (manuMusic, Vector3.zero, Quaternion.identity);
-		
-		if (PlayerPrefs.GetString (PlayerPrefsKeys.FirstRun) != "True") {
+		if (GameObject.Find("LevelMusic(Clone)"))
+			Destroy(GameObject.Find("LevelMusic(Clone)"));
 
-			PlayerPrefs.SetString (PlayerPrefsKeys.FirstRun, "True");
-			PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) + startScore);
+		if (!GameObject.Find("MenuMusic(Clone)"))
+			Instantiate(manuMusic, Vector3.zero, Quaternion.identity);
 
-			PlayerPrefs.SetInt (PlayerPrefsKeys.Resolution, 2);// 3 => true | 0 => false
+		if (PlayerPrefs.GetString(PlayerPrefsKeys.FirstRun) != "True")
+		{
 
-			PlayerPrefs.SetFloat (PlayerPrefsKeys.EngineVolume, 0.74f);
-			PlayerPrefs.SetFloat (PlayerPrefsKeys.MusicVolume, 1f);
-			PlayerPrefs.SetInt (PlayerPrefsKeys.ShowDistance, 3);
-			PlayerPrefs.SetInt (PlayerPrefsKeys.CoinAudio, 3); 
+			PlayerPrefs.SetString(PlayerPrefsKeys.FirstRun, "True");
+			PlayerPrefs.SetInt(PlayerPrefsKeys.Coins, PlayerPrefs.GetInt(PlayerPrefsKeys.Coins) + startScore);
 
-			PlayerPrefs.SetInt (PlayerPrefsKeys.Car0, 3);// 3 => true | 0 => false
-			PlayerPrefs.SetInt (PlayerPrefsKeys.Level0, 3);// 3 => true | 0 => false
+			PlayerPrefs.SetInt(PlayerPrefsKeys.Resolution, 2);// 3 => true | 0 => false
 
+			PlayerPrefs.SetFloat(PlayerPrefsKeys.EngineVolume, 0.74f);
+			PlayerPrefs.SetFloat(PlayerPrefsKeys.MusicVolume, 1f);
+			PlayerPrefs.SetInt(PlayerPrefsKeys.ShowDistance, 3);
+			PlayerPrefs.SetInt(PlayerPrefsKeys.CoinAudio, 3);
+
+			PlayerPrefs.SetInt(PlayerPrefsKeys.Car0, 3);// 3 => true | 0 => false
+			PlayerPrefs.SetInt(PlayerPrefsKeys.Level0, 3);// 3 => true | 0 => false
 		}
-
-		if (PlayerPrefs.GetString (PlayerPrefsKeys.Update) != "True") {
-			PlayerPrefs.SetString (PlayerPrefsKeys.FirstRun, "True");
-			PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) + startScore);
-		}
-
-
-		if(CoinsTXT)
-        {
-			CoinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
-        }
 	}
-	
 
-	void Update () {
+    private void OnEnable()
+    {
+		if (PlayerPrefs.GetString(PlayerPrefsKeys.FirstRun) != "True")
+		{
+			PlayerPrefs.SetString(PlayerPrefsKeys.FirstRun, "True");
+			PlayerPrefs.SetInt(PlayerPrefsKeys.Coins, PlayerPrefs.GetInt(PlayerPrefsKeys.Coins) + startScore);
+		}
+
+		if (CoinsTXT)
+		{
+			UpdateCoinsText();
+		}
+	}
+
+
+    void UpdateCoinsText()
+        {
+			CoinsTXT.text = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins).ToString();
+		}
+
+
+		void Update () {
 		if (Input.GetKeyDown (KeyCode.H)) {
 			PlayerPrefs.DeleteAll ();
 			CoinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();

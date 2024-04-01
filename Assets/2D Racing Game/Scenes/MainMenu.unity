@@ -1838,7 +1838,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &115869253
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1854,15 +1854,15 @@ RectTransform:
   - {fileID: 1383424673}
   - {fileID: 662159070}
   - {fileID: 1232246558}
-  - {fileID: 469618490}
-  - {fileID: 661285795}
-  - {fileID: 1567761553}
-  - {fileID: 1956969353}
+  - {fileID: 1850910854}
   - {fileID: 446586866}
   - {fileID: 1858050729}
   - {fileID: 913515509}
   - {fileID: 563857873}
-  - {fileID: 1850910854}
+  - {fileID: 469618490}
+  - {fileID: 661285795}
+  - {fileID: 1567761553}
+  - {fileID: 1956969353}
   m_Father: {fileID: 1152910964}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2161,6 +2161,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116338823}
   m_CullTransparentMesh: 1
+--- !u!114 &121445607 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5643568094637219909, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1188450604}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &127508166
 GameObject:
   m_ObjectHideFlags: 0
@@ -3009,7 +3021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &202814156
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3074,7 +3086,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 617181640}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WheelsShop, Assembly-CSharp
         m_MethodName: PrevPage
         m_Mode: 1
@@ -4199,22 +4211,37 @@ PrefabInstance:
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 617181640}
+      objectReference: {fileID: 617181641}
+    - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyWheel
+      value: BuyFuelUpgrade
+      objectReference: {fileID: 0}
+    - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EngineShop, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1566211280052080545, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_Name
       value: Buy_Button_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566211280052080545, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1595649909011240183, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
@@ -4327,17 +4354,48 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: d909afe442ab047fea579d8f1d4dcb2a, type: 3}
+    - target: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: PriceGameObject
+      value: 
+      objectReference: {fileID: 1381837476}
+    - target: {fileID: 8166542058694379752, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8539747624165564046, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_Text
+      value: Fuel Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765587997812476989, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9080197663974874088, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d, type: 3}
---- !u!1 &333457796 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1566211280052080545, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+--- !u!114 &333457796 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
     type: 3}
   m_PrefabInstance: {fileID: 333457795}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1661a0c87105e4a74bbc753796d2b6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &333457797 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1733316343038510132, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
@@ -4463,8 +4521,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8.0459, y: -1.5}
-  m_SizeDelta: {x: 109.9082, y: 43}
+  m_AnchoredPosition: {x: 12, y: -2}
+  m_SizeDelta: {x: 180, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &346905912
 MonoBehaviour:
@@ -4499,7 +4557,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100000
+  m_Text: 9999999
 --- !u!222 &346905913
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7092,17 +7150,22 @@ PrefabInstance:
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 617181640}
+      objectReference: {fileID: 617181641}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyWheel
+      value: BuyIntakeUpgrade
+      objectReference: {fileID: 0}
+    - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EngineShop, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
@@ -7113,6 +7176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Buy_Button_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566211280052080545, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1595649909011240183, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
@@ -7224,17 +7292,48 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: d4cb5feb85e3846b9bfe4746f60dfbe8, type: 3}
+    - target: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: PriceGameObject
+      value: 
+      objectReference: {fileID: 2044358069}
+    - target: {fileID: 8166542058694379752, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8539747624165564046, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_Text
+      value: Intake
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765587997812476989, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9080197663974874088, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d, type: 3}
---- !u!1 &595864887 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1566211280052080545, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+--- !u!114 &595864887 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
     type: 3}
   m_PrefabInstance: {fileID: 595864886}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1661a0c87105e4a74bbc753796d2b6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &595864888 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1733316343038510132, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
@@ -7598,9 +7697,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 617181639}
-  - component: {fileID: 617181640}
+  - component: {fileID: 617181641}
   m_Layer: 5
-  m_Name: WheelShop
+  m_Name: EngineShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7631,7 +7730,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -246}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &617181640
+--- !u!114 &617181641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7640,7 +7739,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 617181638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 398e02823486148ea827748e8c5787c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 93890bc30141a4d08b4f2e5184a4c0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   carsManager: {fileID: 1201208749}
@@ -7650,9 +7749,8 @@ MonoBehaviour:
   - {fileID: 1736763349}
   - {fileID: 1188450606}
   shopOffer: {fileID: 1236811242}
-  CoinsTXT: {fileID: 0}
+  CoinsTXT: {fileID: 346905912}
   currentPage: 0
-  items: {fileID: 1195995190}
 --- !u!1 &621525169
 GameObject:
   m_ObjectHideFlags: 0
@@ -9532,6 +9630,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763804784}
   m_CullTransparentMesh: 1
+--- !u!114 &779170412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4301882812141628700, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1188450604}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &811147800
 GameObject:
   m_ObjectHideFlags: 0
@@ -10442,7 +10552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &913515509
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12454,6 +12564,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087116602}
   m_CullTransparentMesh: 1
+--- !u!1 &1095031157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8166542058694379752, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1188450604}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1097652992
 GameObject:
   m_ObjectHideFlags: 0
@@ -13046,8 +13162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065c4c78b5cb56349b8f638bba942cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScore: 10000
-  CoinsTXT: {fileID: 1752779193}
+  startScore: 999999
+  CoinsTXT: {fileID: 387683501}
   ResolutionX: 1280
   ResolutionY: 720
   manuMusic: {fileID: 1000013728720668, guid: 1e0163cbee6f1e64885c1924fb286ac0, type: 3}
@@ -13336,7 +13452,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 180}
+  m_AnchoredPosition: {x: 300, y: 120}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1188450604
@@ -13350,17 +13466,22 @@ PrefabInstance:
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 617181640}
+      objectReference: {fileID: 617181641}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyWheel
+      value: BuyEngineUpgrade
+      objectReference: {fileID: 0}
+    - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EngineShop, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
@@ -13371,6 +13492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Buy_Button_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566211280052080545, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1733316343038510132, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
@@ -13477,6 +13603,46 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: bb6eb8f58e5a84b8b9065907ff67edcb, type: 3}
+    - target: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: PriceText
+      value: 
+      objectReference: {fileID: 779170412}
+    - target: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: TitleText
+      value: 
+      objectReference: {fileID: 1625815848}
+    - target: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: BottomText
+      value: 
+      objectReference: {fileID: 121445607}
+    - target: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: PriceGameObject
+      value: 
+      objectReference: {fileID: 1095031157}
+    - target: {fileID: 8166542058694379752, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8539747624165564046, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_Text
+      value: Engine Power
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765587997812476989, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9080197663974874088, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13488,12 +13654,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1188450604}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1188450606 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1566211280052080545, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+--- !u!114 &1188450606 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
     type: 3}
   m_PrefabInstance: {fileID: 1188450604}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1661a0c87105e4a74bbc753796d2b6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1195995189
 GameObject:
   m_ObjectHideFlags: 0
@@ -14904,7 +15076,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 120}
+  m_AnchoredPosition: {x: 300, y: 180}
   m_SizeDelta: {x: 43, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1361834924
@@ -15210,6 +15382,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375002565}
   m_CullTransparentMesh: 1
+--- !u!1 &1381837476 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8166542058694379752, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+    type: 3}
+  m_PrefabInstance: {fileID: 333457795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1383424672
 GameObject:
   m_ObjectHideFlags: 0
@@ -17559,6 +17737,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1625550020}
   m_CullTransparentMesh: 1
+--- !u!114 &1625815848 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8539747624165564046, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1188450604}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1627910956
 GameObject:
   m_ObjectHideFlags: 0
@@ -17925,7 +18115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1643217867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18603,7 +18793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1688131286
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18668,7 +18858,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 617181640}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WheelsShop, Assembly-CSharp
         m_MethodName: NextPage
         m_Mode: 1
@@ -19594,17 +19784,22 @@ PrefabInstance:
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 617181640}
+      objectReference: {fileID: 617181641}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyWheel
+      value: BuyTurboUpgrade
+      objectReference: {fileID: 0}
+    - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EngineShop, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 786129927919805635, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
         type: 3}
@@ -19721,17 +19916,43 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 5cc3bfe373c8249c4b95417f07866c44, type: 3}
+    - target: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: PriceGameObject
+      value: 
+      objectReference: {fileID: 1912597960}
+    - target: {fileID: 8166542058694379752, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765587997812476989, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9080197663974874088, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d, type: 3}
---- !u!1 &1736763349 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1566211280052080545, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+--- !u!114 &1736763349 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5932220837065313037, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
     type: 3}
   m_PrefabInstance: {fileID: 1736763348}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1661a0c87105e4a74bbc753796d2b6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1736763350 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1733316343038510132, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
@@ -20746,7 +20967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1850910854
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20792,6 +21013,7 @@ MonoBehaviour:
   SelectButton: {fileID: 1704984252}
   BuyButton: {fileID: 1709877548}
   PriceText: {fileID: 971922615}
+  CurrentCoinsText: {fileID: 346905912}
 --- !u!1 &1852673874
 GameObject:
   m_ObjectHideFlags: 0
@@ -21751,6 +21973,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1406562032369345940, guid: acbe0a0ae37824074969551c881bd4f3,
     type: 3}
   m_PrefabInstance: {fileID: 1911939581}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1912597960 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8166542058694379752, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1736763348}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1918096093
 GameObject:
@@ -22827,6 +23055,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989093864}
   m_CullTransparentMesh: 1
+--- !u!1 &2044358069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8166542058694379752, guid: 8b023b5964ccb4f358b5c5ea4dcbe21d,
+    type: 3}
+  m_PrefabInstance: {fileID: 595864886}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2052087629
 GameObject:
   m_ObjectHideFlags: 0
@@ -24266,7 +24500,7 @@ PrefabInstance:
     - target: {fileID: 5946842274414699171, guid: acbe0a0ae37824074969551c881bd4f3,
         type: 3}
       propertyPath: m_Interactable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5946842274414699171, guid: acbe0a0ae37824074969551c881bd4f3,
         type: 3}

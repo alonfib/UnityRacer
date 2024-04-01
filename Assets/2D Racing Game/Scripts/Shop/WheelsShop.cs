@@ -71,6 +71,7 @@ public class WheelsShop : MonoBehaviour
         if (currentCoins >= wheel.Price)
         {
             int formattedCoins = currentCoins - wheel.Price;
+
             CoinsTXT.text = formattedCoins.ToString();
 
             PlayerPrefs.SetInt(PlayerPrefsKeys.Coins, formattedCoins);

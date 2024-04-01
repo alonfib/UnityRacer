@@ -11,7 +11,7 @@ public class Items : MonoBehaviour
 
 public static class ItemIds
 {
-    // wheels
+    // Wheels
     public const string Wheel1 = "Wheel_1";
     public const string Wheel2 = "Wheel_2";
     public const string Wheel3 = "Wheel_3";

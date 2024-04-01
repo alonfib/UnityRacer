@@ -11,6 +11,15 @@ public class Car : MonoBehaviour
     public GameObject RearWheel;
     public GameObject FrontWheel;
 
+    public float[] exhaustUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
+    public float[] intakeUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
+    public float[] turboUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
+    public float[] fuelUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
+    public float[] brakesUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
+    public float[] tiresUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
+
+    public float[] UpgradePrices = new float[] { 2000, 5000, 8000, 12000, 15000, 20000, 30000 , 50000, 75000, 100000 };
+
     int exhaustUpgrade = 0;
     int intakeUpgrade = 0;
     int turboUpgrade = 0;
@@ -47,10 +56,45 @@ public class Car : MonoBehaviour
         // Further initialization here
     }
 
+    void LoadUpgrades()
+    {
+        exhaustUpgrade = GetIntSavedValue(CarItemsPrefKeys.Exhaust);
+        intakeUpgrade = GetIntSavedValue(CarItemsPrefKeys.Intake);
+        turboUpgrade = GetIntSavedValue(CarItemsPrefKeys.Turbo);
+        fuelUpgrade = GetIntSavedValue(CarItemsPrefKeys.FuelTank);
+        brakesUpgrade = GetIntSavedValue(CarItemsPrefKeys.Brakes);
+        tiresUpgrade = GetIntSavedValue(CarItemsPrefKeys.Tires);
+    }
+
     void initCar()
     {
         items = GameObject.FindGameObjectWithTag("CarItems").GetComponent<Items>();
         InitWheels();
+        LoadUpgrades();
+
+    }
+
+    public int GetIntSavedValue(string carPrefKey)
+    {
+        string selected = GetSelectedItemId(carPrefKey);
+        if (!string.IsNullOrEmpty(selected))
+        {
+            int result;
+            if (int.TryParse(selected, out result))
+            {
+                return result;
+            }
+            else
+            {
+                Debug.LogError("Failed to parse selected item ID to int for key: " + carPrefKey);
+                return 0; 
+            }
+        }
+        else
+        {
+            Debug.Log("No selected item ID found for key: " + carPrefKey);
+            return 0; 
+        }
     }
 
     private void InitWheels()
@@ -148,6 +192,12 @@ public class Car : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    // In case itemID is number.
+    public void AddItem(string carPrefKey, int itemId)
+    {
+        AddItem(carPrefKey, itemId.ToString());
+    }
+
     public void SelectItem(string carPrefKey, string itemId)
     {
         PlayerPrefs.SetString(string.Concat(ID, CarItemsPrefKeys.Selected, carPrefKey), itemId);
@@ -209,6 +259,20 @@ public class Car : MonoBehaviour
         else
         {
             Debug.LogError("Wheel GameObject is not assigned.");
+        }
+    }
+
+    public float GetNextUpgradePrice(string carPrefKey)
+    {
+        int currentLevel = GetIntSavedValue(carPrefKey);
+        if (currentLevel >= 0 && currentLevel < UpgradePrices.Length - 1)
+        {
+            return UpgradePrices[currentLevel];
+        }
+        else
+        {
+            Debug.LogError("Invalid upgrade level or max level reached for: " + carPrefKey);
+            return float.MaxValue; // Indicates an error or max level reached
         }
     }
 }

@@ -173,7 +173,7 @@ public class CarsManager : MonoBehaviour
 
     // car shop functions
 
-    public void BuyCar()
+    public void     BuyCar()
     {
         int carIndex = currentCarIndex;
         if (IsCarOwned(carIndex))
@@ -185,6 +185,7 @@ public class CarsManager : MonoBehaviour
         Car car = GetCarByIndex(carIndex);
 
         int currentCoins = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins);
+            Debug.Log("currentCoins " + currentCoins);
         if (currentCoins >= car.Price)
         {
             PlayerPrefs.SetInt(PlayerPrefsKeys.Coins, currentCoins - car.Price);

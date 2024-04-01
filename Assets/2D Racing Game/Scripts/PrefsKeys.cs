@@ -60,6 +60,7 @@ public static class CarItemsPrefKeys
     public const string Exhaust = "Exhaust";
     public const string Intake = "Intake";
     public const string Turbo = "Turbo";
+    public const string Engine = "Engine";
     //public const string Nitro = "Nitro";
     //public const string TopSpeed = "TopSpeed";
 }

@@ -17,6 +17,7 @@ public class GarageMenu: MonoBehaviour
     public GameObject BuyButton;
 
     public Text PriceText;
+    public Text CurrentCoinsText;
 
     void UpdateButtons()
     {
@@ -41,6 +42,7 @@ public class GarageMenu: MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        CurrentCoinsText.text = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins).ToString();
         UpdateScreen();
         PlayerPrefs.SetInt("InitialCarIndex", carsManager.currentCarIndex);
 
@@ -73,7 +75,9 @@ public class GarageMenu: MonoBehaviour
             LockedScreen.SetActive(true);
             BuyButton.SetActive(true);
             UpgradeButton.interactable = false;
-            PriceText.text = carsManager.currentCar.Price.ToString();
+
+            Car car = carsManager.AllCarsPrefabs[carsManager.currentCarIndex];
+            PriceText.text = car.Price.ToString();
         }
     }
 
@@ -84,6 +88,7 @@ public class GarageMenu: MonoBehaviour
     {
         carsManager.BuyCar();
         UpdateScreen();
+        CurrentCoinsText.text = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins).ToString();
     }
 
     public void SelectCar()
