@@ -9,18 +9,36 @@ public static class CarUtils // A class to hold utility methods related to cars
     }
 }
 
-public enum DrivetrainType
+    // Shop Items
+
+public static class DrivetrainType
 {
-    FWD, // Front Wheel Drive
-    RWD, // Rear Wheel Drive
-    AWD  // All Wheel Drive
+    public const string RWD = "RWD";
+    public const string FWD = "FWD";    
+    public const string AWD = "AWD";    
 }
 
-public enum SuspentionsTypes
+public static class SuspentionsTypes
 {
-    Default,
-    Medium,
-    High,
-    Low
+    public const string Default = "Default";
+    public const string Sport = "Sport";
+    public const string Rally = "Rally";
+    public const string High = "High";
+}
+
+public static class BrakesTypes
+{
+    public const string Default = "Default";
+    public const string Sport = "Sport";
+    public const string StreetRacing = "StreetRacing";
+    public const string Racing = "Racing";
+}
+
+public static class TiresTypes
+{
+    public const string Default = "Default";
+    public const string Sport = "Sport";
+    public const string StreetRacing = "StreetRacing";
+    public const string Racing = "Racing";
 }
 

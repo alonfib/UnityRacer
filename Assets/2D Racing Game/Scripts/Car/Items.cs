@@ -7,6 +7,7 @@ using UnityEngine;
 public class Items : MonoBehaviour
 {
     public Wheel[] wheels;
+    public Color[] colors;
 }
 
 public static class ItemIds

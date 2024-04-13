@@ -39,9 +39,7 @@ public static class CarItemsPrefKeys
 
     // Upgrades Wheels
 
-    public const string Tires = "Tires";
     public const string Wheels = "Wheels";
-    public const string Brakes = "Brakes";
 
     // Customize
 
@@ -52,13 +50,16 @@ public static class CarItemsPrefKeys
 
     public const string Drivetrain = "Drivetrain";
     public const string Suspension = "Suspension";
+    public const string Brakes = "Brakes";
+    public const string Tires = "Tires";
+
     //public const string Weight = "Weight";
 
     // Engine Upgrades
 
     public const string FuelTank = "FuelTank";
     public const string Exhaust = "Exhaust";
-    public const string Intake = "Intake";
+    public const string ECU = "ECU";
     public const string Turbo = "Turbo";
     public const string Engine = "Engine";
     //public const string Nitro = "Nitro";

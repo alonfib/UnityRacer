@@ -322,6 +322,7 @@ MonoBehaviour:
   texture2D: {fileID: 2800000, guid: d87b9541d85534c459d598f54f6f96fb, type: 3}
   RearWheel: {fileID: 1000011495651232}
   FrontWheel: {fileID: 1000014293644380}
+  carController: {fileID: 114000010067999730}
   exhaustUpgrades:
   - 1
   - 1.1
@@ -334,7 +335,7 @@ MonoBehaviour:
   - 1.8
   - 1.9
   - 2
-  intakeUpgrades:
+  ecuUpgrades:
   - 1
   - 1.1
   - 1.2

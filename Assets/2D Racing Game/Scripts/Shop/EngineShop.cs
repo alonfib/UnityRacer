@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public enum Upgrades
 {
     Fuel,
-    Intake,
+    ECU,
     Turbo,
     Engine,
 }
@@ -72,9 +72,9 @@ public class EngineShop : MonoBehaviour
     }
 
     // Intermediary methods
-    public void BuyIntakeUpgrade()
+    public void BuyEcuUpgrade()
     {
-        BuyUpgrade(CarItemsPrefKeys.Intake);
+        BuyUpgrade(CarItemsPrefKeys.ECU);
     }
 
     public void BuyEngineUpgrade()
@@ -139,7 +139,7 @@ public class EngineShop : MonoBehaviour
         switch (index)
         {
             case 0: return CarItemsPrefKeys.FuelTank;
-            case 1: return CarItemsPrefKeys.Intake;
+            case 1: return CarItemsPrefKeys.ECU;
             case 2: return CarItemsPrefKeys.Turbo;
             case 3: return CarItemsPrefKeys.Engine;
             // Add more cases as needed for your upgrades

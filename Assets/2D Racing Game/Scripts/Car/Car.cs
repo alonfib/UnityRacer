@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using System.Collections;
 
+public static class CarObjectsTags
+{
+    public const string FrontWheel = "FrontWheel";
+    public const string RearWheel = "RearWheel";
+    public const string Car = "Car";
+    public const string Body = "Player";
+    //public const string Body = "Player";
+}
+
 public class Car : MonoBehaviour
 {
     public string ID;
@@ -10,22 +19,23 @@ public class Car : MonoBehaviour
 
     public GameObject RearWheel;
     public GameObject FrontWheel;
+    public CarController carController;
 
     public float[] exhaustUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
-    public float[] intakeUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
+    public float[] ecuUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
     public float[] turboUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
     public float[] fuelUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
     public float[] brakesUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
-    public float[] tiresUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
+    //public float[] tiresUpgrades = new float[] { 1f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2f };
 
     public float[] UpgradePrices = new float[] { 2000, 5000, 8000, 12000, 15000, 20000, 30000 , 50000, 75000, 100000 };
 
     int exhaustUpgrade = 0;
-    int intakeUpgrade = 0;
+    int ecuUpgrade = 0; 
     int turboUpgrade = 0;
     int fuelUpgrade = 0;
     int brakesUpgrade = 0;
-    int tiresUpgrade = 0;
+    //int tiresUpgrade = 0;
 
     public Wheel DefaultWheel;
 
@@ -39,8 +49,10 @@ public class Car : MonoBehaviour
     string[] colors;
     Items items;
 
-    DrivetrainType drivetrain = DrivetrainType.RWD;
-    SuspentionsTypes suspentions = SuspentionsTypes.Default;
+    string drivetrain = DrivetrainType.RWD;
+    string suspentions = SuspentionsTypes.Default;
+    string tires = TiresTypes.Default;
+    string brakes = BrakesTypes.Default;
 
     void Awake()
     {
@@ -59,11 +71,201 @@ public class Car : MonoBehaviour
     void LoadUpgrades()
     {
         exhaustUpgrade = GetIntSavedValue(CarItemsPrefKeys.Exhaust);
-        intakeUpgrade = GetIntSavedValue(CarItemsPrefKeys.Intake);
+        ecuUpgrade = GetIntSavedValue(CarItemsPrefKeys.ECU);
         turboUpgrade = GetIntSavedValue(CarItemsPrefKeys.Turbo);
         fuelUpgrade = GetIntSavedValue(CarItemsPrefKeys.FuelTank);
         brakesUpgrade = GetIntSavedValue(CarItemsPrefKeys.Brakes);
-        tiresUpgrade = GetIntSavedValue(CarItemsPrefKeys.Tires);
+        //tiresUpgrade = GetIntSavedValue(CarItemsPrefKeys.Tires);
+    }
+
+    void LoadDrivetrain()
+    {
+        string selectedDrivtrain = GetSelectedItemId(CarItemsPrefKeys.Drivetrain);
+        if (selectedDrivtrain.Length > 0)
+        {
+            drivetrain = selectedDrivtrain;
+            carController.drivetrain = drivetrain;
+            carController.UpdateDriveTrain();
+        }
+    }
+
+    void LoadSuspensions()
+    {
+        string selectedSuspentions = GetSelectedItemId(CarItemsPrefKeys.Suspension);
+        if (!string.IsNullOrEmpty(selectedSuspentions))
+        {
+            suspentions = selectedSuspentions;
+
+            // Apply the suspension changes to the car. This is conceptual;
+            // you need to implement ApplySuspensionType in a way that matches your game's mechanics.
+            ApplySuspensionType(suspentions);
+        }
+        else
+        {
+            // If no suspension is selected, you could apply a default or keep the current setting.
+            Debug.Log("No specific suspension selected, using default or existing settings.");
+        }
+    }
+
+    void ApplySuspensionType(string suspensionType)
+    {
+        switch (suspensionType)
+        {
+            case SuspentionsTypes.Default:
+                SetSuspentions(3);
+                // Apply default suspension settings
+                break;
+            case SuspentionsTypes.Sport:
+                SetSuspentions(2.7f);
+
+                // Apply medium suspension settings
+                break;
+            case SuspentionsTypes.Rally:
+                SetSuspentions(3.2f);
+                // Apply high suspension settings
+                break;
+            case SuspentionsTypes.High:
+                SetSuspentions(4);
+                // Apply low suspension settings
+                break;
+            default:
+                Debug.LogError($"Unknown suspension type: {suspensionType}");
+                break;
+        }
+    }
+
+    void SetSuspentions(float height)
+    {
+        // Get the current suspension settings as a copy
+        JointSuspension2D frontSuspension = carController.frontMotorWheel.suspension;
+        JointSuspension2D rearSuspension = carController.rearMotorWheel.suspension;
+
+        // Modify the copy
+        frontSuspension.frequency = height;
+        rearSuspension.frequency = height;
+
+        // Assign the modified copy back to the suspension property
+        carController.frontMotorWheel.suspension = frontSuspension;
+        carController.rearMotorWheel.suspension = rearSuspension;
+    }
+
+    void LoadTires()
+    {
+        string selectedTires = GetSelectedItemId(CarItemsPrefKeys.Tires);
+        if (!string.IsNullOrEmpty(selectedTires))
+        {
+            tires = selectedTires;
+
+            // Apply the suspension changes to the car. This is conceptual;
+            // you need to implement ApplySuspensionType in a way that matches your game's mechanics.
+            ApplTireType(tires);
+        }
+        else
+        {
+            // If no suspension is selected, you could apply a default or keep the current setting.
+            Debug.Log("No specific suspension selected, using default or existing settings.");
+        }
+    }
+
+    void ApplTireType(string tires)
+    {
+        switch (tires)
+        {
+            case TiresTypes.Default:
+                SetTiresUpgrade(0.1f);
+                // Apply default suspension settings
+                break;
+            case TiresTypes.Sport:
+                SetTiresUpgrade(0.3f);
+
+                // Apply medium suspension settings
+                break;
+            case TiresTypes.StreetRacing:
+                SetTiresUpgrade(6f);
+                // Apply high suspension settings
+                break;
+            case TiresTypes.Racing:
+                SetTiresUpgrade(0.8f);
+                // Apply low suspension settings
+                break;
+            default:
+                Debug.LogError($"Unknown tires type: {tires}");
+                break;
+        }
+    }
+
+    void SetTiresUpgrade(float dampingRatio)
+    {
+        JointSuspension2D frontSuspension = carController.frontMotorWheel.suspension;
+        JointSuspension2D rearSuspension = carController.rearMotorWheel.suspension;
+
+        // Modify the copy
+        frontSuspension.dampingRatio = dampingRatio;
+        rearSuspension.dampingRatio = dampingRatio;
+
+        // Assign the modified copy back to the suspension property
+        carController.frontMotorWheel.suspension = frontSuspension;
+        carController.rearMotorWheel.suspension = rearSuspension;
+    }
+
+    void LoddBrakes()
+    {
+        string selectedBrakes = GetSelectedItemId(CarItemsPrefKeys.Brakes);
+        if (!string.IsNullOrEmpty(selectedBrakes))
+        {
+            brakes = selectedBrakes;
+
+            // Apply the suspension changes to the car. This is conceptual;
+            // you need to implement ApplySuspensionType in a way that matches your game's mechanics.
+            ApplBrakeType(brakes);
+        }
+        else
+        {
+            // If no suspension is selected, you could apply a default or keep the current setting.
+            Debug.Log("No specific suspension selected, using default or existing settings.");
+        }
+    }
+
+    void ApplBrakeType(string brakes)
+    {
+        switch (brakes)
+        {
+            case BrakesTypes.Default:
+                SetBrakeUpgrade(0.1f);
+                // Apply default suspension settings
+                break;
+            case BrakesTypes.Sport:
+                SetBrakeUpgrade(0.3f);
+
+                // Apply medium suspension settings
+                break;
+            case BrakesTypes.StreetRacing:
+                SetBrakeUpgrade(6f);
+                // Apply high suspension settings
+                break;
+            case BrakesTypes.Racing:
+                SetBrakeUpgrade(0.8f);
+                // Apply low suspension settings
+                break;
+            default:
+                Debug.LogError($"Unknown tires type: {tires}");
+                break;
+        }
+    }
+
+
+    void SetBrakeUpgrade(float brakePower)
+    {
+        carController.brakePower = brakePower;
+    }
+
+
+    public void LoadBodyUpgrades()
+    {
+        LoadDrivetrain();
+        LoadSuspensions();
+        LoadTires();
+        LoddBrakes();
     }
 
     void initCar()
@@ -71,7 +273,7 @@ public class Car : MonoBehaviour
         items = GameObject.FindGameObjectWithTag("CarItems").GetComponent<Items>();
         InitWheels();
         LoadUpgrades();
-
+        LoadBodyUpgrades();
     }
 
     public int GetIntSavedValue(string carPrefKey)
@@ -134,8 +336,8 @@ public class Car : MonoBehaviour
 
     private void GetWheelsObjects()
     {
-        RearWheel = GameObject.FindGameObjectWithTag("RearWheel");
-        FrontWheel = GameObject.FindGameObjectWithTag("FrontWheel");
+        RearWheel = GameObject.FindGameObjectWithTag(CarObjectsTags.RearWheel);
+        FrontWheel = GameObject.FindGameObjectWithTag(CarObjectsTags.FrontWheel);
 
         if (RearWheel == null || FrontWheel == null)
         {
@@ -275,4 +477,5 @@ public class Car : MonoBehaviour
             return float.MaxValue; // Indicates an error or max level reached
         }
     }
+
 }

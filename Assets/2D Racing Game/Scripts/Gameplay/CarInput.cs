@@ -6,10 +6,18 @@ public class CarInput : MonoBehaviour {
 
 	[HideInInspector]public CarController carController;
 
-	IEnumerator Start ()
+	void Start()
 	{
-		yield return new WaitForSeconds (.3f);
-		carController = GameObject.FindObjectOfType<CarController> ();
+		// Start the initialization coroutine
+		StartCoroutine(DelayedInitialize());
+	}
+
+	IEnumerator DelayedInitialize()
+	{
+		// Wait for the next frame to ensure all objects are loaded
+		yield return null;
+		carController = GameObject.FindObjectOfType<CarController>();
+		// Further initialization here
 	}
 
 	public void Gas ()

@@ -1,9 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WheelsShop : MonoBehaviour
+public class ColorShop : MonoBehaviour
 {
     public CarsManager carsManager;
     public BuyButton[] BuyButtons;

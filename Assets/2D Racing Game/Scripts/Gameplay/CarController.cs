@@ -11,7 +11,7 @@ public class CarController : MonoBehaviour {
 	public float smokeTargetSpeed = 17f;
 	public float cameraDistance = 15f;
 
-	public DrivetrainType drivetrain = DrivetrainType.RWD;
+	public string drivetrain = DrivetrainType.RWD;
 	public WheelJoint2D frontMotorWheel;
 	public WheelJoint2D rearMotorWheel;
 
@@ -22,7 +22,8 @@ public class CarController : MonoBehaviour {
 	// Motor power, Brake power and deceleration speed
 	public float motorPower = 1400f,
 	brakePower = -14f,
-	decelerationSpeed = 0.3f;
+	frontDecelerationSpeed = 0.1f,
+	rearDecelerationSpeed = 0.3f;
 	// Car max speed
 	public float maxSpeed = 14f;
 	// Rotate force on the  fly 
@@ -52,7 +53,7 @@ public class CarController : MonoBehaviour {
 		Camera.main.transform.position = new Vector3 (posCamera.x, posCamera.y, - cameraDistance);
 	}
 
-	void UpdateDriveTrain()
+	public void UpdateDriveTrain()
     {
 		if (drivetrain == DrivetrainType.RWD)
 		{
@@ -73,7 +74,6 @@ public class CarController : MonoBehaviour {
 			frontMotor = frontMotorWheel.motor;
 			rearMotor = rearMotorWheel.motor;
 		}
-
 	}
 
 	void Start () { 
@@ -104,100 +104,128 @@ public class CarController : MonoBehaviour {
 	float currentSpeed;    
 	//float maxspeed = 300f;
 
-	void FixedUpdate(){
+void FixedUpdate(){
+    // Existing speed limiter code...
+    if (speed > maxSpeed)
+        motorPower = 0;
+    else
+        motorPower = powerTemp;
 
-		// speed limiter based on max speed limit value
-		if (speed > maxSpeed)
-			motorPower = 0;
-		else
-			motorPower = powerTemp;
-		
-		// Moving forward
-		if (Input.GetAxis ("Horizontal") > 0 || HoriTemp > 0) {
-			// Add force to car back wheel
-			if(isGrounded)
-				rearMotor.motorSpeed = Mathf.Lerp (rearMotor.motorSpeed, -motorPower, Time.deltaTime * 1.4f);
-				frontMotor.motorSpeed = Mathf.Lerp (frontMotor.motorSpeed, -motorPower, Time.deltaTime * 1.4f);
+    // Determining if gas or brake is pressed
+    bool isGasPressed = Input.GetAxis("Horizontal") > 0 || HoriTemp > 0;
+    bool isBrakesPressed = Input.GetAxis("Horizontal") < 0 || HoriTemp < 0;
 
-			// Wheel particles
-			if (isGrounded) {
-				if (speed < 4.3f) {
-					wheelParticle.transform.position = particlePosition.position;
-
-					em.enabled = true;
-
-				} else
-					em.enabled = false;
-			}
-			else
-				em.enabled = false;
-			
-		}
-		else 
-		{// Moving backward
-			if (Input.GetAxis ("Horizontal") < 0 || HoriTemp < 0) {
-
-				if (speed < -maxSpeed) {
-					if (isGrounded)
-						rearMotor.motorSpeed = Mathf.Lerp (rearMotor.motorSpeed, 0, Time.deltaTime * 3f);
-						frontMotor.motorSpeed = Mathf.Lerp (frontMotor.motorSpeed, 0, Time.deltaTime * 3f);
-				} else {
-					if (isGrounded)
-						rearMotor.motorSpeed = Mathf.Lerp (rearMotor.motorSpeed, motorPower, Time.deltaTime * 1.4f);
-						frontMotor.motorSpeed = Mathf.Lerp (frontMotor.motorSpeed, motorPower, Time.deltaTime * 1.4f);
-				}
-                                                                                      
-			} else {// Releasing car throttle and brake
-				if (isGrounded)
-					rearMotor.motorSpeed = Mathf.Lerp (rearMotor.motorSpeed, 0, Time.deltaTime * decelerationSpeed);
-					frontMotor.motorSpeed = Mathf.Lerp (frontMotor.motorSpeed, 0, Time.deltaTime * decelerationSpeed);	
-			}
-
-		}
-
-		// Update WheelJoint2D motor inputs
-
-		if(drivetrain == DrivetrainType.RWD || drivetrain == DrivetrainType.AWD)
+    if (isGasPressed)
+    {
+        // Accelerating
+        ApplyMotorForce(-motorPower);
+    }
+    else if (isBrakesPressed)
+    {
+			Debug.Log("speed" + speed);
+        if (speed > 3f)
         {
-			rearMotorWheel.motor = rearMotor; 
+            // Braking
+            ApplyBrakingForce();
         }
-		if (drivetrain == DrivetrainType.FWD || drivetrain == DrivetrainType.AWD)
-		{
-			frontMotorWheel.motor = frontMotor;
-		}
+        else
+        {
+            // Reversing
+            ApplyMotorForce(motorPower);
+        }
+    }
+    else
+    {
+        // No input, decelerate
+        Decelerate();
+    }
 
-		// Cheack fo rotate on the fly
+		Rotate();
 
-		Rotate ();
-	
 		#if UNITY_EDITOR
-		EngineSoundEditor ();  
+		EngineSoundEditor ();
 		#else
 		EngineSoundMobile (); 
 		#endif
 
 		if (!isMobile)
-			HoriTemp = Input.GetAxis ("Horizontal");
+			HoriTemp = Input.GetAxis("Horizontal");
 
-		if (useSmoke) {
-			if (Input.GetAxis ("Horizontal") > 0 || HoriTemp > 0) {
+		if (useSmoke)
+		{
+			if (Input.GetAxis("Horizontal") > 0 || HoriTemp > 0)
+			{
 				if (speed < smokeTargetSpeed)
 					emSmoke.enabled = true;
 				else
 					emSmoke.enabled = false;
-			} else
+			}
+			else
 				emSmoke.enabled = false;
 		}
+		// Update motor inputs, rotation, engine sound, and smoke effect...
+		// (The rest of your existing FixedUpdate code)
 	}
+
+void ApplyMotorForce(float motorSpeed)
+{
+    if(isGrounded)
+    {
+        rearMotor.motorSpeed = Mathf.Lerp(rearMotor.motorSpeed, motorSpeed, Time.deltaTime * 1.4f);
+        frontMotor.motorSpeed = Mathf.Lerp(frontMotor.motorSpeed, motorSpeed, Time.deltaTime * 1.4f);
+        UpdateMotor();
+    }
+    ToggleWheelParticles(true);
+}
+
+void ApplyBrakingForce()
+{
+    // Enhanced braking logic here, potentially using a different rate of deceleration
+		//rearMotor.motorSpeed = Mathf.Lerp(rearMotor.motorSpeed, brakePower, Time.deltaTime * 3f);
+		rearMotor.motorSpeed = Mathf.Lerp(rearMotor.motorSpeed, 1f, Time.deltaTime * brakePower);
+		frontMotor.motorSpeed = Mathf.Lerp(frontMotor.motorSpeed, 1f, Time.deltaTime * brakePower);
+    UpdateMotor();
+    ToggleWheelParticles(false);
+}
+
+void Decelerate()
+{
+    if(isGrounded)
+    {
+        rearMotor.motorSpeed = Mathf.Lerp(rearMotor.motorSpeed, 0, Time.deltaTime * rearDecelerationSpeed);
+        frontMotor.motorSpeed = Mathf.Lerp(frontMotor.motorSpeed, 0, Time.deltaTime * frontDecelerationSpeed);
+        UpdateMotor();
+    }
+    ToggleWheelParticles(false);
+}
+
+void UpdateMotor()
+{
+    if (drivetrain == DrivetrainType.RWD || drivetrain == DrivetrainType.AWD)
+    {
+        rearMotorWheel.motor = rearMotor;
+    }
+    if (drivetrain == DrivetrainType.FWD || drivetrain == DrivetrainType.AWD)
+    {
+        frontMotorWheel.motor = frontMotor;
+    }
+}
+
+void ToggleWheelParticles(bool isActive)
+{
+    if (wheelParticle != null)
+    {
+        var emission = wheelParticle.emission;
+        emission.enabled = isActive && isGrounded && (Mathf.Abs(speed) > 4.3f);
+    }
+}
 
 
 	void LateUpdate()
 	{
 
-		// Get car speed
-		speed = GetComponent<Rigidbody2D>().velocity.magnitude;
-		if (Input.GetAxis ("Horizontal") < 0 || HoriTemp < 0) 
-			speed = -speed;
+		Vector2 localVelocity = transform.InverseTransformDirection(GetComponent<Rigidbody2D>().velocity);
+		speed = localVelocity.x;
 	}
 
 	// Rotate car on air based on speed

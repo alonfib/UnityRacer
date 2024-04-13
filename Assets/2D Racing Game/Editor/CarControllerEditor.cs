@@ -56,9 +56,13 @@ public class CarControllerEditor : Editor{
 			new GUIContent ("Brake Power", "Brake Power"), true);
 		EditorGUILayout.Space ();
 
-		EditorGUILayout.PropertyField (serializedObject.FindProperty ("decelerationSpeed"),
-			new GUIContent ("Friction Power", "Friction Power"), true);
+		EditorGUILayout.PropertyField (serializedObject.FindProperty ("rearDecelerationSpeed"),
+			new GUIContent ("Rear Brake Power", "Rear Brake Power"), true);
 		EditorGUILayout.Space ();
+
+		EditorGUILayout.PropertyField(serializedObject.FindProperty("frontDecelerationSpeed"),
+		new GUIContent("Front Brake Power", "Front Brake Power"), true);
+		EditorGUILayout.Space();
 
 		EditorGUILayout.PropertyField (serializedObject.FindProperty ("maxSpeed"),
 			new GUIContent ("Max Speed", "Max Speed"), true);
