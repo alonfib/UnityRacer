@@ -22,6 +22,7 @@ public class CarInput : MonoBehaviour {
 
 	public void Gas ()
 	{
+		Debug.Log("GAS");
 		carController.Acceleration ();
 	}
 

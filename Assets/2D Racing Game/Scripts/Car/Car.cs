@@ -163,7 +163,7 @@ public class Car : MonoBehaviour
         else
         {
             // If no suspension is selected, you could apply a default or keep the current setting.
-            Debug.Log("No specific suspension selected, using default or existing settings.");
+            Debug.Log("No specific suspension tires, using default or existing settings.");
         }
     }
 
@@ -222,7 +222,7 @@ public class Car : MonoBehaviour
         else
         {
             // If no suspension is selected, you could apply a default or keep the current setting.
-            Debug.Log("No specific suspension selected, using default or existing settings.");
+            Debug.Log("No specific brakes selected, using default or existing settings.");
         }
     }
 

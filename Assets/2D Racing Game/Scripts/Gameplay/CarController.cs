@@ -55,13 +55,7 @@ public class CarController : MonoBehaviour {
 
 	public void UpdateDriveTrain()
     {
-		if (drivetrain == DrivetrainType.RWD)
-		{
-			rearMotorWheel.useMotor = true;
-			rearMotor = rearMotorWheel.motor;
-			frontMotorWheel.useMotor = false;
-		}
-		else if (drivetrain == DrivetrainType.FWD)
+	 if (drivetrain == DrivetrainType.FWD)
 		{
 			frontMotorWheel.useMotor = true;
 			frontMotor = frontMotorWheel.motor;
@@ -73,6 +67,11 @@ public class CarController : MonoBehaviour {
 			rearMotorWheel.useMotor = true;
 			frontMotor = frontMotorWheel.motor;
 			rearMotor = rearMotorWheel.motor;
+		} else // RWD
+        {
+			rearMotorWheel.useMotor = true;
+			rearMotor = rearMotorWheel.motor;
+			frontMotorWheel.useMotor = false;
 		}
 	}
 
@@ -117,7 +116,8 @@ void FixedUpdate(){
 
     if (isGasPressed)
     {
-        // Accelerating
+			// Accelerating
+			Debug.Log("motor power " + motorPower);
         ApplyMotorForce(-motorPower);
     }
     else if (isBrakesPressed)
@@ -144,12 +144,12 @@ void FixedUpdate(){
 
 		#if UNITY_EDITOR
 		EngineSoundEditor ();
-		#else
+#else
 		EngineSoundMobile (); 
-		#endif
+#endif
 
-		if (!isMobile)
-			HoriTemp = Input.GetAxis("Horizontal");
+        if (!isMobile)
+            HoriTemp = Input.GetAxis("Horizontal");
 
 		if (useSmoke)
 		{
@@ -181,9 +181,9 @@ void ApplyMotorForce(float motorSpeed)
 void ApplyBrakingForce()
 {
     // Enhanced braking logic here, potentially using a different rate of deceleration
-		//rearMotor.motorSpeed = Mathf.Lerp(rearMotor.motorSpeed, brakePower, Time.deltaTime * 3f);
-		rearMotor.motorSpeed = Mathf.Lerp(rearMotor.motorSpeed, 1f, Time.deltaTime * brakePower);
-		frontMotor.motorSpeed = Mathf.Lerp(frontMotor.motorSpeed, 1f, Time.deltaTime * brakePower);
+		rearMotor.motorSpeed = Mathf.Lerp(rearMotor.motorSpeed, brakePower, Time.deltaTime * 3f);
+		//rearMotor.motorSpeed = Mathf.Lerp(rearMotor.motorSpeed, 1f, Time.deltaTime * brakePower);
+		//frontMotor.motorSpeed = Mathf.Lerp(frontMotor.motorSpeed, 1f, Time.deltaTime * brakePower);
     UpdateMotor();
     ToggleWheelParticles(false);
 }
@@ -204,12 +204,16 @@ void UpdateMotor()
     if (drivetrain == DrivetrainType.RWD || drivetrain == DrivetrainType.AWD)
     {
         rearMotorWheel.motor = rearMotor;
-    }
-    if (drivetrain == DrivetrainType.FWD || drivetrain == DrivetrainType.AWD)
+    }if (drivetrain == DrivetrainType.FWD || drivetrain == DrivetrainType.AWD)
     {
         frontMotorWheel.motor = frontMotor;
     }
-}
+	if (drivetrain != DrivetrainType.FWD || drivetrain != DrivetrainType.AWD || drivetrain != DrivetrainType.RWD)
+    {
+		rearMotorWheel.motor = rearMotor;
+
+	}
+	}
 
 void ToggleWheelParticles(bool isActive)
 {
@@ -262,6 +266,7 @@ void ToggleWheelParticles(bool isActive)
 			else
 				isGrounded = false;
 
+			Debug.Log("is grounded " + isGrounded);
 			canRotate = !isGrounded;  	
 
 		}
@@ -312,6 +317,7 @@ void ToggleWheelParticles(bool isActive)
 	public void Acceleration ()
 	{
 		HoriTemp = 1f;
+		Debug.Log("HoriTemp " + HoriTemp);
 	}
 	//this is public function for car Brake\Backward UI Button
 	public void Brake ()
