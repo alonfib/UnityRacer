@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 public static class CarObjectsTags
 {
@@ -49,7 +50,7 @@ public class Car : MonoBehaviour
     string[] colors;
     Items items;
 
-    string drivetrain = DrivetrainType.RWD;
+    DrivetrainType drivetrain = DrivetrainType.RWD;
     string suspentions = SuspentionsTypes.Default;
     string tires = TiresTypes.Default;
     string brakes = BrakesTypes.Default;
@@ -80,12 +81,28 @@ public class Car : MonoBehaviour
 
     void LoadDrivetrain()
     {
-        string selectedDrivtrain = GetSelectedItemId(CarItemsPrefKeys.Drivetrain);
-        if (selectedDrivtrain.Length > 0)
+        string selectedDrivetrain = GetSelectedItemId(CarItemsPrefKeys.Drivetrain); // Get the saved drivetrain as a string
+
+        // Check if a valid drivetrain string was retrieved
+        if (!string.IsNullOrEmpty(selectedDrivetrain))
         {
-            drivetrain = selectedDrivtrain;
-            carController.drivetrain = drivetrain;
-            carController.UpdateDriveTrain();
+            DrivetrainType parsedDrivetrain;
+
+            // Try parsing the string into the DrivetrainType enum
+            if (Enum.TryParse(selectedDrivetrain, out parsedDrivetrain))
+            {
+                drivetrain = parsedDrivetrain;
+                carController.drivetrain = drivetrain;
+                carController.UpdateDriveTrain();
+            }
+            else
+            {
+                Debug.LogError("Invalid drivetrain type retrieved from PlayerPrefs: " + selectedDrivetrain);
+            }
+        }
+        else
+        {
+            Debug.Log("No drivetrain type selected, using default settings.");
         }
     }
 

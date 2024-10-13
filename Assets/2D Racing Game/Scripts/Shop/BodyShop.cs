@@ -65,7 +65,7 @@ public class BodyShop : MonoBehaviour
         foreach (BuyButton button in BuyButtons)
         {
             string carItem = button.CarItem;
-            bool isOwned = currentCar.IsItemOwned(ShopCarPrefKey, carItem);
+            bool isOwned = currentCar.IsItemOwned(ShopCarPrefKey, carItem) ;
             bool isSelected = carItem == currentCar.GetSelectedItemId(ShopCarPrefKey);
 
             button.LockGameObject.SetActive(!isOwned);

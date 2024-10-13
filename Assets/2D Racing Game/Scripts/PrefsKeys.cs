@@ -1,6 +1,9 @@
 ﻿public static class PlayerPrefsKeys
 {
+    public const int OwnedValue = 3;
     // My New Keys
+    public const string Initialized = "Initialized";
+
     public const string New = "New";
     public const string OwnedCarsIds = "OwnedCarsIds";
     public const string OwnedLevelsIds = "OwnedLevelsIds";

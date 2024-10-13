@@ -36,9 +36,10 @@ public class LevelSelect : MonoBehaviour
     bool canAnim;
     bool animaState;
 
-    void Start()
+
+    void OnEnable()
     {
-        // Display total coins on start
+
         coinsTXT.text = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins).ToString();
 
         // Read last selected level ID
@@ -49,17 +50,16 @@ public class LevelSelect : MonoBehaviour
 
     private void UpdateImages()
     {
-        int selectedId = selectedLevelIndex;
-        currentItemImage.sprite = levelIcons[selectedId];
-        topRightImage.sprite = levelIcons[selectedId];
+        currentItemImage.sprite = levelIcons[selectedLevelIndex];
+        topRightImage.sprite = levelIcons[selectedLevelIndex];
 
-        nextItemImage.sprite = selectedId < levelIcons.Length - 1 ? levelIcons[selectedId + 1] : null;
-        nextItemImage.color = selectedId < levelIcons.Length - 1 ? Color.white : Color.clear;
+        nextItemImage.sprite = selectedLevelIndex < levelIcons.Length - 1 ? levelIcons[selectedLevelIndex + 1] : null;
+        nextItemImage.color = selectedLevelIndex < levelIcons.Length - 1 ? Color.white : Color.clear;
 
-        prevItemImage.sprite = selectedId > 0 ? levelIcons[selectedId - 1] : null;
-        prevItemImage.color = selectedId > 0 ? Color.white : Color.clear;
+        prevItemImage.sprite = selectedLevelIndex > 0 ? levelIcons[selectedLevelIndex - 1] : null;
+        prevItemImage.color = selectedLevelIndex > 0 ? Color.white : Color.clear;
 
-        lockIcon.SetActive(PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedId.ToString()) != 3);
+        lockIcon.SetActive(PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString()) != PlayerPrefsKeys.OwnedValue);
         currentItem.text = levelsPrices[selectedLevelIndex].ToString();
     }
 
@@ -69,7 +69,6 @@ public class LevelSelect : MonoBehaviour
         {
             selectedLevelIndex++;
             PlayAnim();
-            PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedLevelIndex, selectedLevelIndex);
             UpdateImages();
             PlayClip(okClip);
         }
@@ -81,7 +80,7 @@ public class LevelSelect : MonoBehaviour
         {
             selectedLevelIndex--;
             PlayAnim();
-            PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedLevelIndex, selectedLevelIndex);
+
             UpdateImages();
             PlayClip(okClip);
         }
@@ -101,13 +100,13 @@ public class LevelSelect : MonoBehaviour
 
     public void BuyLevel()
     {
-        if (PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString()) != 3)
+        if (PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString()) != PlayerPrefsKeys.OwnedValue)
         {
             if (PlayerPrefs.GetInt(PlayerPrefsKeys.Coins) >= levelsPrices[selectedLevelIndex])
             {
                 int newCoinsCount = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins) - levelsPrices[selectedLevelIndex];
                 PlayerPrefs.SetInt(PlayerPrefsKeys.Coins, newCoinsCount);
-                PlayerPrefs.SetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString(), 3);
+                PlayerPrefs.SetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString(), PlayerPrefsKeys.OwnedValue);
                 lockIcon.SetActive(false);
                 coinsTXT.text = newCoinsCount.ToString();
                 PlayClip(okClip);
@@ -122,11 +121,12 @@ public class LevelSelect : MonoBehaviour
 
     public void SelectCurrent()
     {
-        if (PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString()) == 3)
+        if (PlayerPrefs.GetInt(PlayerPrefsKeys.Level + selectedLevelIndex.ToString()) == PlayerPrefsKeys.OwnedValue)
         {
             // Logic when level is already owned
             nextMenu.SetActive(true);
             PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedLevelIndex, selectedLevelIndex);
+            PlayerPrefs.Save();
         }
         else
         {

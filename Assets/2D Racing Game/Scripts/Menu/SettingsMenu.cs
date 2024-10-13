@@ -138,57 +138,57 @@ public class SettingsMenu : MonoBehaviour {
 				PlayerPrefs.SetInt ("Coins", PlayerPrefs.GetInt ("Coins") + 1000000);
 		
 			if (cheatBox.text == "DeveloperLevels-Unlock1")
-				PlayerPrefs.SetInt ("Level1", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level1", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperLevels-Unlock2")
-				PlayerPrefs.SetInt ("Level2", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level2", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperLevels-Unlock3")
-				PlayerPrefs.SetInt ("Level3", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level3", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperLevels-Unlock4")
-				PlayerPrefs.SetInt ("Level4", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level4", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperLevels-Unlock5")
-				PlayerPrefs.SetInt ("Level5", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level5", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperLevels-Unlock6")
-				PlayerPrefs.SetInt ("Level6", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level6", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperLevels-Unlock7")
-				PlayerPrefs.SetInt ("Level7", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level7", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperLevels-Unlock8")
-				PlayerPrefs.SetInt ("Level8", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level8", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperLevels-Unlock9")
-				PlayerPrefs.SetInt ("Level9", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level9", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperLevels-Unlock10")
-				PlayerPrefs.SetInt ("Level10", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Level10", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 
 			if (cheatBox.text == "DeveloperLevels-UnlockAll") {
 
 				for (int a = 0; a < 100; a++)
-					PlayerPrefs.SetInt ("Level" + a.ToString (), 3);// 3=> true - 0 => false
+					PlayerPrefs.SetInt ("Level" + a.ToString (), PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			}
 
 			if (cheatBox.text == "DeveloperCars-Unlock1")
-				PlayerPrefs.SetInt ("Car1", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car1", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperCars-Unlock2")
-				PlayerPrefs.SetInt ("Car2", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car2", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperCars-Unlock3")
-				PlayerPrefs.SetInt ("Car3", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car3", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperCars-Unlock4")
-				PlayerPrefs.SetInt ("Car4", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car4", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperCars-Unlock5")
-				PlayerPrefs.SetInt ("Car5", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car5", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperCars-Unlock6")
-				PlayerPrefs.SetInt ("Car6", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car6", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperCars-Unlock7")
-				PlayerPrefs.SetInt ("Car7", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car7", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperCars-Unlock8")
-				PlayerPrefs.SetInt ("Car8", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car8", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperCars-Unlock9")
-				PlayerPrefs.SetInt ("Car9", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car9", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			if (cheatBox.text == "DeveloperCars-Unlock10")
-				PlayerPrefs.SetInt ("Car10", 3);// 3=> true - 0 => false
+				PlayerPrefs.SetInt ("Car10", PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 
 			if (cheatBox.text == "DeveloperCars-UnlockAll") {
 
 				for (int a = 0; a < 100; a++)
-					PlayerPrefs.SetInt ("Car" + a.ToString (), 3);// 3=> true - 0 => false
+					PlayerPrefs.SetInt ("Car" + a.ToString (), PlayerPrefsKeys.OwnedValue);// 3=> true - 0 => false
 			}
 
 

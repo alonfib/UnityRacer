@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour
 
 
 
-	//Start-----------------------------------------------
 	IEnumerator Start ()
 	{
 		//Coins Initialization-----------------------------------------------
@@ -102,35 +101,35 @@ public class GameManager : MonoBehaviour
 		////-----------------------------------------------
 		/// 
 		// Read if distance based award is already gived for current level, Set it to gived
-		if (PlayerPrefs.GetInt ("c500" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == 3) {
+		if (PlayerPrefs.GetInt ("c500" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == PlayerPrefsKeys.OwnedValue) {
 			c500 = true;
 			LastRecord.text = "Record:500";
 		}
-		if (PlayerPrefs.GetInt ("c1000" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == 3) {
+		if (PlayerPrefs.GetInt ("c1000" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == PlayerPrefsKeys.OwnedValue) {
 			c1000 = true;
 			LastRecord.text = "Record:1000";
 		}
-		if (PlayerPrefs.GetInt ("c1500" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == 3) {
+		if (PlayerPrefs.GetInt ("c1500" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == PlayerPrefsKeys.OwnedValue) {
 			c1500 = true;
 			LastRecord.text = "Record:1500";
 		}
-		if (PlayerPrefs.GetInt ("c2000" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == 3) {
+		if (PlayerPrefs.GetInt ("c2000" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == PlayerPrefsKeys.OwnedValue) {
 			c2000 = true;
 			LastRecord.text = "Record:2000";
 		}
-		if (PlayerPrefs.GetInt ("c2500" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == 3) {
+		if (PlayerPrefs.GetInt ("c2500" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == PlayerPrefsKeys.OwnedValue) {
 			c2500 = true;
 			LastRecord.text = "Record:2500";
 		}
-		if (PlayerPrefs.GetInt ("c3000" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == 3) {
+		if (PlayerPrefs.GetInt ("c3000" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == PlayerPrefsKeys.OwnedValue) {
 			c3000 = true;
 			LastRecord.text = "Record:3000";
 		}
-		if (PlayerPrefs.GetInt ("c3500" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == 3) {
+		if (PlayerPrefs.GetInt ("c3500" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == PlayerPrefsKeys.OwnedValue) {
 			c3500 = true;
 			LastRecord.text = "Record:3500";
 		}
-		if (PlayerPrefs.GetInt ("c4000" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == 3) {
+		if (PlayerPrefs.GetInt ("c4000" + PlayerPrefs.GetInt ("SelectedLevel").ToString ()) == PlayerPrefsKeys.OwnedValue) {
 			c4000 = true;
 			LastRecord.text = "Record:4000";
 		}

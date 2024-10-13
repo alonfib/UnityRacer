@@ -9,14 +9,15 @@ public static class CarUtils // A class to hold utility methods related to cars
     }
 }
 
-    // Shop Items
+// Shop Items
 
-public static class DrivetrainType
+public enum DrivetrainType
 {
-    public const string RWD = "RWD";
-    public const string FWD = "FWD";    
-    public const string AWD = "AWD";    
+    RWD,
+    FWD,
+    AWD
 }
+
 
 public static class SuspentionsTypes
 {

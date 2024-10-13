@@ -11,7 +11,7 @@ public class CarController : MonoBehaviour {
 	public float smokeTargetSpeed = 17f;
 	public float cameraDistance = 15f;
 
-	public string drivetrain = DrivetrainType.RWD;
+	public DrivetrainType drivetrain = DrivetrainType.RWD;
 	public WheelJoint2D frontMotorWheel;
 	public WheelJoint2D rearMotorWheel;
 
@@ -266,7 +266,6 @@ void ToggleWheelParticles(bool isActive)
 			else
 				isGrounded = false;
 
-			Debug.Log("is grounded " + isGrounded);
 			canRotate = !isGrounded;  	
 
 		}
