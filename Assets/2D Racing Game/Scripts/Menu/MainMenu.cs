@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        ResetData();
+        //ResetData();
     }
 
     public void ResetData()

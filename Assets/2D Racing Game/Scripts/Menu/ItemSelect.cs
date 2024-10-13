@@ -213,26 +213,16 @@ public class ItemSelect : MonoBehaviour
 	// Public function used in current selected button (ui button ) 
 	public void Buy ()
 	{
-
-		if (itemType == ItemType.Level) {
-			if (PlayerPrefs.GetInt (PlayerPrefsKeys.Level + selectedLevelIndex.ToString ()) != PlayerPrefsKeys.OwnedValue) {
-				if (PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) >= itemsPrice [selectedLevelIndex]) {
-					int newCoinsCount = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins) - itemsPrice[selectedLevelIndex];
-					PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, newCoinsCount);
-					PlayerPrefs.SetInt (PlayerPrefsKeys.Level + selectedLevelIndex.ToString (), PlayerPrefsKeys.OwnedValue);
-					lockIcon.SetActive (false);
-					coinsTXT.text = newCoinsCount.ToString ();
-				} else
-					shopOffer.SetActive (true);
-			}
+		if (PlayerPrefs.GetInt (PlayerPrefsKeys.Level + selectedLevelIndex.ToString ()) != PlayerPrefsKeys.OwnedValue) {
+			if (PlayerPrefs.GetInt (PlayerPrefsKeys.Coins) >= itemsPrice [selectedLevelIndex]) {
+				int newCoinsCount = PlayerPrefs.GetInt(PlayerPrefsKeys.Coins) - itemsPrice[selectedLevelIndex];
+				PlayerPrefs.SetInt (PlayerPrefsKeys.Coins, newCoinsCount);
+				PlayerPrefs.SetInt (PlayerPrefsKeys.Level + selectedLevelIndex.ToString (), PlayerPrefsKeys.OwnedValue);
+				lockIcon.SetActive (false);
+				coinsTXT.text = newCoinsCount.ToString ();
+				UpdateImages();
+			} else
+				shopOffer.SetActive (true);
 		}
-
-			//if (itemType == ItemType.Car) {
-			//	carsManager.BuyCar(selectedCarIndex, () =>
-			//	{
-			//	lockIcon.SetActive (false);
-			//	coinsTXT.text = PlayerPrefs.GetInt (PlayerPrefsKeys.Coins).ToString ();
-			//	});
-			//}
 	}
 }
