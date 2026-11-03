@@ -1,0 +1,33 @@
+# Unity scenes/prefabs/assets are YAML. Merge them with Unity's Smart Merge
+# (UnityYAMLMerge) instead of a plain text merge. One-time local setup: see README.
+*.unity             merge=unityyamlmerge
+*.prefab            merge=unityyamlmerge
+*.asset             merge=unityyamlmerge
+*.mat               merge=unityyamlmerge
+*.anim              merge=unityyamlmerge
+*.controller        merge=unityyamlmerge
+*.overrideController merge=unityyamlmerge
+*.physicsMaterial2D merge=unityyamlmerge
+*.lighting          merge=unityyamlmerge
+*.meta              merge=unityyamlmerge
+
+# Binary assets: never diff or merge as text
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.tga   binary
+*.psd   binary
+*.tif   binary
+*.wav   binary
+*.mp3   binary
+*.ogg   binary
+*.fbx   binary
+*.ttf   binary
+*.otf   binary
+*.pdf   binary
+*.rtf   binary
+*.zip   binary
+*.dll   binary
+*.so    binary
+*.aar   binary
+*.jar   binary

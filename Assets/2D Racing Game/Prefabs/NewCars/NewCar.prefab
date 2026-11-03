@@ -170,7 +170,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4047784526739792}
   - component: {fileID: 114717322288676740}
-  - component: {fileID: 1010848062479744735}
   - component: {fileID: 4295905814548144750}
   - component: {fileID: 7364938051728425793}
   - component: {fileID: 3541967555573403898}
@@ -262,40 +261,6 @@ MonoBehaviour:
   - 1
   - 1.1
   debug: 1
---- !u!114 &1010848062479744735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1407616701538708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53c4bee1f1f8d483b83429d432d5660b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  centerOfMass: {fileID: 4221561800263794}
-  rearMotorWheel: {fileID: 5861361528127123613}
-  frontMotorWheel: {fileID: 6540517893678959109}
-  drivetrainType: 1
-  speed: 10
-  groundDistance: 2.1
-  motorPower: 1000
-  brakePower: -14
-  decelerationSpeed: 0.3
-  maxSpeed: 14
-  RotateForce: 140
-  EngineSoundS: {fileID: 4295905814548144750}
-  isMobile: 1
-  wheelParticle: {fileID: 198131282228154586}
-  particlePosition: {fileID: 4491983357319450}
-  useSmoke: 0
-  smoke: {fileID: 198131282228154586}
-  smokeTargetSpeed: 17
-  cameraDistance: 15
-  Multiplyer: 3
-  minP: 1
-  maxP: 2.4
 --- !u!82 &4295905814548144750
 AudioSource:
   m_ObjectHideFlags: 0
