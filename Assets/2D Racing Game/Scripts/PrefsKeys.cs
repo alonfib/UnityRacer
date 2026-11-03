@@ -33,6 +33,7 @@
     public const string Speed = "Speed";
     public const string AllScoreTemp = "AllScoreTemp";
     public const string Assistance = "Assistance";
+    public const string EndlessBestDistance = "EndlessBestDistance";
 }
 
 public static class CarItemsPrefKeys

@@ -83,6 +83,15 @@ public class GameManager : MonoBehaviour
 	// How much coins give to player when finish the level?
 	public int winnerAwardedCoins = 30000;
 
+	[Header("Endless Mode")]
+	// Endless mode: no finish line, coins every few hundred meters, best distance is saved
+	public bool endlessMode;
+	public float endlessAwardEvery = 500f;
+	public int endlessAwardCoins = 500;
+
+	float endlessBest;
+	float nextEndlessAward;
+
 
 
 
@@ -97,6 +106,13 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForEndOfFrame();   //Player is Spawned afer milisecond. we wait .3 and then find it
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
 		Started = true;   // The game is now started. you can run your codes on update function
+
+		if (endlessMode) {
+			endlessBest = PlayerPrefs.GetFloat (PlayerPrefsKeys.EndlessBestDistance);
+			nextEndlessAward = endlessAwardEvery;
+			LastRecord.text = "Record:" + Mathf.Floor (endlessBest).ToString ();
+			DitanceSlider.maxValue = Mathf.Max (endlessBest, endlessAwardEvery);
+		} else {
 		//-----------------------------------------------
 		////-----------------------------------------------
 		/// 
@@ -133,6 +149,7 @@ public class GameManager : MonoBehaviour
 			c4000 = true;
 			LastRecord.text = "Record:4000";
 		}
+		}
 
 
 
@@ -164,7 +181,10 @@ public class GameManager : MonoBehaviour
 	{
 		
 		if (Started) {
-			CoinDistance ();
+			if (endlessMode)
+				EndlessDistance ();
+			else
+				CoinDistance ();
 			if (player.position.x >= DistanceTemp) {
 				DistanceTXT.text = Mathf.Floor (player.position.x).ToString ();
 				DistanceTemp = player.position.x;
@@ -329,6 +349,41 @@ public class GameManager : MonoBehaviour
 
 
 
+	// Endless mode distance awards and record
+	void EndlessDistance ()
+	{
+		float x = player.position.x;
+
+		if (x >= nextEndlessAward) {
+			AddCoin (endlessAwardCoins);
+			coinAwardedBox.SetActive (true);
+			awardAnimator.SetBool ("Award", true);
+			awardedText.text = endlessAwardCoins.ToString () + " Coins Awarded";
+			StartCoroutine (Awardfalse ());
+			nextEndlessAward += endlessAwardEvery;
+		}
+
+		if (x > endlessBest) {
+			endlessBest = x;
+			LastRecord.text = "Record:" + Mathf.Floor (endlessBest).ToString ();
+			if (x > DitanceSlider.maxValue)
+				DitanceSlider.maxValue = x;
+		}
+	}
+
+	void SaveEndlessRecord ()
+	{
+		if (endlessMode && endlessBest > PlayerPrefs.GetFloat (PlayerPrefsKeys.EndlessBestDistance)) {
+			PlayerPrefs.SetFloat (PlayerPrefsKeys.EndlessBestDistance, endlessBest);
+			PlayerPrefs.Save ();
+		}
+	}
+
+	void OnDisable ()
+	{
+		SaveEndlessRecord ();
+	}
+
 	IEnumerator Awardfalse ()
 	{
 		
@@ -350,6 +405,7 @@ public class GameManager : MonoBehaviour
 	{
 		yield return new WaitForSeconds (3f);
 		if (isDead) {
+			SaveEndlessRecord ();
 			youLostMenu.SetActive (true);
 			Time.timeScale = 0;
 		}
@@ -368,6 +424,7 @@ public class GameManager : MonoBehaviour
 	{
 		yield return new WaitForSeconds (3f);
 		if (fuelFinished) {
+			SaveEndlessRecord ();
 			youLostMenu.SetActive (true);
 			Time.timeScale = 0;
 		}

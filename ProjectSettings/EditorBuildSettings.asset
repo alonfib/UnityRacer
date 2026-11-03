@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/2D Racing Game/Scenes/Level6.unity
     guid: bf00d2b372b0c6f4cb506442de70e4d7
   - enabled: 1
+    path: Assets/2D Racing Game/Scenes/Level7.unity
+    guid: c0ca3a78486546669b42a5ad40bf34f0
+  - enabled: 1
     path: Assets/2D Racing Game/Scenes/UnityAds.unity
     guid: 56156c9f74c8aff49bc6c88ac335a92f
   m_configObjects:

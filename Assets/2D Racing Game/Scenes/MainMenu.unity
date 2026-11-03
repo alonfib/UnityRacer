@@ -629,6 +629,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7bb31aff090e5c541b4fbb5d7e4be89e, type: 3}
   - {fileID: 21300000, guid: efce3db9267eea44896a12ea9b05dd70, type: 3}
   - {fileID: 21300000, guid: 588f6d8985156fc439f9d71773f693cb, type: 3}
+  - {fileID: 21300000, guid: 2cb63d1b3623aca45919347411213ba3, type: 3}
   currentItemImage: {fileID: 1110085018}
   prevItemImage: {fileID: 1952060074}
   nextItemImage: {fileID: 1301643484}
@@ -647,7 +648,7 @@ MonoBehaviour:
   lockIcon: {fileID: 1082692313}
   nextMen: {fileID: 115869252}
   mainMenu: {fileID: 1643217866}
-  itemsPrice: e8030000d0070000b80b0000a00f00008813000070170000581b0000
+  itemsPrice: e8030000d0070000b80b0000a00f00008813000070170000581b000000000000
 --- !u!114 &52939248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +735,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7bb31aff090e5c541b4fbb5d7e4be89e, type: 3}
   - {fileID: 21300000, guid: efce3db9267eea44896a12ea9b05dd70, type: 3}
   - {fileID: 21300000, guid: 588f6d8985156fc439f9d71773f693cb, type: 3}
+  - {fileID: 21300000, guid: 2cb63d1b3623aca45919347411213ba3, type: 3}
   currentItemImage: {fileID: 1110085018}
   prevItemImage: {fileID: 1952060074}
   nextItemImage: {fileID: 1301643484}
@@ -748,7 +750,7 @@ MonoBehaviour:
   lockIcon: {fileID: 1082692313}
   nextMenu: {fileID: 1643217866}
   mainMenu: {fileID: 1643217866}
-  levelsPrices: d0070000102700001027000010270000102700001027000010270000
+  levelsPrices: d007000010270000102700001027000010270000102700001027000000000000
 --- !u!1 &53480486
 GameObject:
   m_ObjectHideFlags: 0
